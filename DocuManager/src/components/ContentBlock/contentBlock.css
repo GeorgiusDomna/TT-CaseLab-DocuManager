@@ -1,0 +1,11 @@
+.contentBlock {
+  width: 970px;
+  padding: 40px;
+}
+.contentBlock h2 {
+  text-align: left;
+}
+.documentList {
+  width: 100%;
+  padding: 0px;
+}
