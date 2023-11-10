@@ -11,12 +11,22 @@ interface ContentBlockProps {
 function ContentBlock({ data, header }: ContentBlockProps) {
   const [documentList, setDocumentList] = useState(data);
 
-  // function addItem(data: documentData) {
-  //   setDocumentList((list) => [...list, data]);
-  // }
-  // function deleteDocument(id: number) {
-  //   setDocumentList((list) => list.filter((el) => el.id !== id));
-  // }
+  // const handlers = {
+  //   addItem(data: documentData) {
+  //     setDocumentList((list) => [...list, data]);
+  //   },
+  //   deleteItem(id: number) {
+  //     setDocumentList((list) => list.filter((el) => el.id !== id));
+  //   },
+  //   renameItem(id: number, newName: string) {
+  //     setDocumentList((list) =>
+  //       list.map((el) => {
+  //         if (el.id === id) el.name = newName;
+  //         return el;
+  //       })
+  //     );
+  //   },
+  // };
 
   return (
     <div className={styles.contentBlock}>
