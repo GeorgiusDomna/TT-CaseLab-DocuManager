@@ -11,6 +11,13 @@ interface ContentBlockProps {
 function ContentBlock({ data, header }: ContentBlockProps) {
   const [documentList, setDocumentList] = useState(data);
 
+  function addItem(data: documentData) {
+    setDocumentList((list) => [...list, data]);
+  }
+  function deleteDocument(id: number) {
+    setDocumentList((list) => list.filter((el) => el.id !== id));
+  }
+
   return (
     <div className={classes.contentBlock}>
       <h2 className={classes.contentBlock__title}>{header}</h2>

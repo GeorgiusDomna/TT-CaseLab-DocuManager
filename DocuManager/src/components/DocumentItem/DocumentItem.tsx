@@ -1,6 +1,6 @@
 import './documentItem.css';
 
-function DocumentItem({data}) {
+function DocumentItem({ data }) {
   return <div className='documentList_item'>{data}</div>;
 }
 
