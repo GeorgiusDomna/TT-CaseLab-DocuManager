@@ -1,7 +1,5 @@
-.App {
-  box-sizing: border-box;
+.app {
   display: flex;
-  text-align: center;
   margin: 0 auto;
   max-width: 1440px;
   height: 1024px;
