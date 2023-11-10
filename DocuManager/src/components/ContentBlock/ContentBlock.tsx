@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import DocumentItem from '../DocumentItem/DocumentItem';
-import './contentBlock.css';
+import styles from './contentBlock.module.css';
 
 function ContentBlock() {
   const [documentList, setDocumentList] = useState([
@@ -11,7 +11,7 @@ function ContentBlock() {
   ]);
 
   return (
-    <div className='contentBlock'>
+    <div className={styles.contentBlock}>
       <h2>Все документы</h2>
       <ul className='documentList'>
         {documentList.map((item, index) => (

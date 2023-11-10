@@ -1,10 +1,10 @@
-import NavBar from '../NavBar/NavBar';
-import './sideBar.css';
+import Navigation from '../Navigation/Navigation';
+import styles from './sideBar.module.css';
 
 function SideBar() {
   return (
-    <div className='sideBar'>
-      <NavBar />
+    <div className={styles.sideBar}>
+      <Navigation />
     </div>
   );
 }

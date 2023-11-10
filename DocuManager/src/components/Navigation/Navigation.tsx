@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import CategoryItem from '../CategoryItem/CategoryItem';
-import './navBar.css';
+import styles from './navigation.module.css';
 
-function NavBar() {
+function Navigation() {
   const [categoryList, setCategoryList] = useState(['Frontend', 'Backend', 'Disign']);
 
   return (
-    <div className='navBar'>
+    <div className={styles.navBar}>
       <h3>Категории</h3>
       <ul>
         {categoryList.map((data, index) => (
@@ -17,4 +17,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default Navigation;
