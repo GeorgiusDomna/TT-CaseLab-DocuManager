@@ -33,7 +33,7 @@ function ContentBlock({ data, header }: ContentBlockProps) {
       <h2 className={styles.contentBlock__title}>{header}</h2>
       <ul className={styles.contentBlock__documentList}>
         {documentList.map((item) => (
-          <DocumentItem key={item.id} data={item} />
+          <DocumentItem key={item.id} data={item} handlers={handlers} />
         ))}
       </ul>
     </div>
