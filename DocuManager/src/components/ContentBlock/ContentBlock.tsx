@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import DocumentItem from '../DocumentItem/DocumentItem';
-import './contentBlock.css';
+import classes from './contentBlock.module.css';
+import documentData from '../../interfaces/documentData';
 
-function ContentBlock() {
-  const [documentList, setDocumentList] = useState([
-    'Bears.png',
-    'Moscow.png',
-    'Mountains.png',
-    'Winter.png',
-  ]);
+interface ContentBlockProps {
+  data: documentData[];
+  header: string;
+}
+
+function ContentBlock({ data, header }: ContentBlockProps) {
+  const [documentList, setDocumentList] = useState(data);
 
   return (
-    <div className='contentBlock'>
-      <h2>Все документы</h2>
-      <ul className='documentList'>
-        {documentList.map((item, index) => (
-          <DocumentItem key={index} data={item} />
+    <div className={classes.contentBlock}>
+      <h2 className={classes.contentBlock__title}>{header}</h2>
+      <ul className={classes.contentBlock__documentList}>
+        {documentList.map((item) => (
+          <DocumentItem key={item.id} data={item} />
         ))}
       </ul>
     </div>

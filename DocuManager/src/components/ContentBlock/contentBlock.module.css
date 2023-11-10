@@ -2,10 +2,10 @@
   width: 970px;
   padding: 40px;
 }
-.contentBlock h2 {
+.contentBlock__title {
   text-align: left;
 }
-.documentList {
+.contentBlock__documentList {
   width: 100%;
   padding: 0px;
 }
