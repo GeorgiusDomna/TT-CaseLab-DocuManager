@@ -1,4 +1,4 @@
-export interface HeadersObject {
+export interface HeadersObject extends Record<string, string> {
   Accept: string;
   'Content-Type': string;
   Authorization: string;
