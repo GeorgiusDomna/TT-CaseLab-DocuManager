@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import DocumentItem from '../DocumentItem/DocumentItem';
 import styles from './contentBlock.module.css';
 import documentData from '../../interfaces/documentData';
 
-interface ContentBlockProps {
-  data: documentData[];
-  header: string;
-}
+function ContentBlock() {
+  const [documentList, setDocumentList] = useState<documentData[]>([]);
+  const [title, setTitle] = useState('Все документы');
+  const { id } = useParams();
 
-function ContentBlock({ data, header }: ContentBlockProps) {
-  const [documentList, setDocumentList] = useState(data);
+  useEffect(() => {
+    if (id) {
+      //Функция получения документов из категории
+      setTimeout(() => {}, 2000);
+      setTitle(id);
+    } else {
+      //Функция получения всех документов
+    }
+  }, [id]);
 
   // const handlers = {
   //   addItem(data: documentData) {
@@ -30,10 +38,10 @@ function ContentBlock({ data, header }: ContentBlockProps) {
 
   return (
     <div className={styles.contentBlock}>
-      <h2 className={styles.contentBlock__title}>{header}</h2>
+      <h2 className={styles.contentBlock__title}>{title}</h2>
       <ul className={styles.contentBlock__documentList}>
         {documentList.map((item) => (
-          <DocumentItem key={item.id} data={item} handlers={handlers} />
+          <DocumentItem key={item.id} />
         ))}
       </ul>
     </div>

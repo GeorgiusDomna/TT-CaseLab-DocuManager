@@ -1,22 +1,22 @@
-import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+
 import SideBar from '../SideBar/SideBar';
-import ContentBlock from '../ContentBlock/ContentBlock';
-import './app.css';
-import documentData from '../../interfaces/documentData';
+import Loading from '../Loading/Loading';
+import styles from './app.module.css';
+
+const ContentBlock = lazy(() => import('../ContentBlock/ContentBlock'));
 
 function App() {
-  const [contentData, setContentData] = useState<documentData[]>([]);
-  const [contentHeader, setContentHeader] = useState('Все категории');
-
-  function categoryClick(data: documentData[], header: string) {
-    setContentData(data);
-    setContentHeader(header);
-  }
-
   return (
-    <div className='App'>
-      <SideBar handler={categoryClick} />
-      <ContentBlock data={contentData} header={contentHeader} />
+    <div className={styles.app}>
+      <SideBar />
+      <Suspense fallback={<Loading type={'spinningBubbles'} color={'#ECECEC'} />}>
+        <Routes>
+          <Route path='/' element={<ContentBlock />} />
+          <Route path='/categories/:id?' element={<ContentBlock />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }
