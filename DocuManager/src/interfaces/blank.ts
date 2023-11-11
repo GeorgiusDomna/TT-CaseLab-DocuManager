@@ -6,6 +6,6 @@ export interface HeadersObject {
 export interface FileOrFolder {
   name: string;
   type: 'file' | 'dir';
-  size: number; 
-  created: string; 
-} 
+  size: number;
+  created: string;
+}
