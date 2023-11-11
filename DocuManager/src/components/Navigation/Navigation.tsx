@@ -1,5 +1,6 @@
+import React from 'react';
 import { useState } from 'react';
-import CategoryItem from '../CategoryItem/CategoryItem';
+import CategoryItem from '../CategoryItem/CategoryItem.tsx';
 import styles from './navigation.module.css';
 
 function Navigation() {
@@ -9,9 +10,7 @@ function Navigation() {
     <div className={styles.navBar}>
       <h3>Категории</h3>
       <ul>
-        {categoryList.map((data, index) => (
-          <CategoryItem key={index} data={data} />
-        ))}
+          <CategoryItem/>
       </ul>
     </div>
   );
