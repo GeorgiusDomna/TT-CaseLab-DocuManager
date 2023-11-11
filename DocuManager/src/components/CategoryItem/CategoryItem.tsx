@@ -3,28 +3,37 @@ import { useEffect, useState } from "react"
 import { fetchFolderContents } from '../../api/documentService';
 import { FileOrFolder } from '../../interfaces/blank';
 import React from 'react';
-export const CategoryItem = () => {
+
+
+export const CategoryItem:React.FC= () => {
+const handleItemClick=(itemName:string)=>{
+  console.log(`Выбранная категория ${itemName}`);
+  
+}
+
   const [data, setData] = useState<FileOrFolder[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetchFolderContents();
-      setData(result || []);
-     
-      
+      setData(result || []); 
     };
     fetchData();
-    console.log(data);
   }, [])
   return (
     <div className={styles.categoryItem}>
       {
-        data.map((item, id) =>
-          <div key={id}>{item.name}</div >
+        data.map((item, id) =>(
+          <li key={id} onClick={()=>handleItemClick(item.name)}>{item.name}</li>
         )
-      }
+      )}
     </div>
 
   )
 }
 
 export default CategoryItem;
+
+{/* interface CategoryItemProps{
+  categories:string[];
+  onItemClick:(category:string)=>void
+} */}

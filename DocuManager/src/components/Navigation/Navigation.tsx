@@ -1,10 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
-import CategoryItem from '../CategoryItem/CategoryItem.tsx';
+import CategoryItem from '../CategoryItem/CategoryItem';
 import styles from './navigation.module.css';
 
 function Navigation() {
-  const [categoryList, setCategoryList] = useState(['Frontend', 'Backend', 'Disign']);
 
   return (
     <div className={styles.navBar}>
