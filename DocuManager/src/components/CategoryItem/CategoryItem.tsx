@@ -2,10 +2,10 @@ import styles from './categoryItem.module.css';
 import { useEffect, useState } from "react"
 import { fetchFolderContents } from '../../api/documentService';
 import { FileOrFolder } from '../../interfaces/blank';
-import React from 'react';
 
 
-export const CategoryItem:React.FC= () => {
+
+export const CategoryItem= () => {
 const handleItemClick=(itemName:string)=>{
   console.log(`Выбранная категория ${itemName}`);
   

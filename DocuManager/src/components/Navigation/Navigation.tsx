@@ -1,4 +1,3 @@
-import React from 'react';
 import CategoryItem from '../CategoryItem/CategoryItem';
 import styles from './navigation.module.css';
 
