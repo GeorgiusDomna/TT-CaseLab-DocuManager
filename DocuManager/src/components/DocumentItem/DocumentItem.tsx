@@ -73,8 +73,9 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
             className={styles.document__select}
             name='select-change-document'
             onChange={handleSelectValue}
+            defaultValue=''
           >
-            <option className={styles.document__option} value='' disabled hidden>
+            <option className={styles.document__option} disabled value=''>
               Выберите категорию
             </option>
             <option value='1'>Главная папка</option>
