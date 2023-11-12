@@ -17,13 +17,13 @@ const handleItemClick=(itemName:string)=>{
     fetchData();
   }, [])
   return (
-    <div className={styles.categoryItem}>
+    <>
       {
         data.map((item, id) =>(
-          <li key={id} onClick={()=>handleItemClick(item.name)}>{item.name}</li>
+          <li key={id} onClick={()=>handleItemClick(item.name)}className={styles.categoryItem}>{item.name}</li>
         )
       )}
-    </div>
+    </>
 
   )
 }
