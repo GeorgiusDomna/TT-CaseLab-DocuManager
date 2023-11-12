@@ -16,7 +16,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
   };
 
   return (
-    <div className={styles.document}>
+    <li className={styles.document}>
       <div className={`${styles.document__item} ${isOpen ? styles.document__item_opened : ''}`}>
         <div className={styles.document__titleContainer}>
           <div className={styles.document__iconDocument}></div>
@@ -84,7 +84,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
           </button>
         </form>
       )}
-    </div>
+    </li>
   );
 };
 
