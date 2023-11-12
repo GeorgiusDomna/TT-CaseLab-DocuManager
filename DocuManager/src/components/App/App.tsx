@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SideBar from '../SideBar/SideBar';
 import ContentBlock from '../ContentBlock/ContentBlock';
-import './app.css';
+import styles from './app.module.css';
 import documentData from '../../interfaces/documentData';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
   }
 
   return (
-    <div className='App'>
+    <div className={styles.app}>
       <SideBar handler={categoryClick} />
       <ContentBlock data={contentData} header={contentHeader} />
     </div>
