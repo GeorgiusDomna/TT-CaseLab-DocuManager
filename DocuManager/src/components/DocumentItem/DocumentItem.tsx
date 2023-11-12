@@ -13,6 +13,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
 
   const toggleOption = () => {
     setIsOpen(!isOpen);
+    setSelectValue('');
   };
 
   return (
