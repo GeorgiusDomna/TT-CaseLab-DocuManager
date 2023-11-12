@@ -4,12 +4,12 @@ import styles from './navigation.module.css';
 function Navigation() {
 
   return (
-    <div className={styles.navBar}>
+   <>
       <h3>Категории</h3>
-      <ul>
+      <ul className={styles.navBar}>
           <CategoryItem/>
       </ul>
-    </div>
+   </>
   );
 }
 
