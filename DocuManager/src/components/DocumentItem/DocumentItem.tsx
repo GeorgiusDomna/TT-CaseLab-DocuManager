@@ -1,7 +1,9 @@
 import styles from './documentItem.module.css';
-
-function DocumentItem({ data }) {
-  return <div className={styles.documentList_item}>{data}</div>;
+interface DocumentItemProps {
+  data: string;
 }
+const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
+  return <div className={styles.documentList_item}>{data}</div>;
+};
 
 export default DocumentItem;

@@ -3,7 +3,7 @@ import DocumentItem from '../DocumentItem/DocumentItem';
 import styles from './contentBlock.module.css';
 
 function ContentBlock() {
-  const [documentList, setDocumentList] = useState([
+  const [documentList] = useState([
     'Bears.png',
     'Moscow.png',
     'Mountains.png',
