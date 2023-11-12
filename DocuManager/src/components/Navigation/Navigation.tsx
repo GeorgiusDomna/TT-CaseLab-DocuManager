@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import CategoryItem from '../CategoryItem/CategoryItem';
 import { fetchFolderContents } from '../../api/documentService';
-import { FileOrFolder } from '../../interfaces/blank';
+import { ResourceMetadata } from '../../interfaces/blank';
+import CategoryItem from '../CategoryItem/CategoryItem';
 import styles from './navigation.module.css';
 
 function Navigation() {
-  const [data, setData] = useState<FileOrFolder[]>([]);
+  const [data, setData] = useState<ResourceMetadata[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetchFolderContents();
@@ -17,8 +17,8 @@ function Navigation() {
     <>
       <h3>Категории</h3>
       <ul className={styles.navBar}>
-        {data.map((item, id: number) => (
-          <CategoryItem key={id} category={item.name} />
+        {data.map((item) => (
+          <CategoryItem key={item.resource_id} category={item.name} />
         ))}
       </ul>
     </>
