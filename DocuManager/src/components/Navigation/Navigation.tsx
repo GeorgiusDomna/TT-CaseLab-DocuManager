@@ -3,7 +3,7 @@ import CategoryItem from '../CategoryItem/CategoryItem';
 import styles from './navigation.module.css';
 
 function Navigation() {
-  const [categoryList, setCategoryList] = useState(['Frontend', 'Backend', 'Disign']);
+  const [categoryList, setCategoryList] = useState(['university', 'accounting']);
 
   return (
     <div className={styles.navBar}>
