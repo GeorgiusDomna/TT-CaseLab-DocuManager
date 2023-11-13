@@ -4,7 +4,7 @@ interface DocumentItemProps {
   data: string;
   handlers: unknown;
 }
-const DocumentItem: React.FC<DocumentItemProps> = ({ data, handlers }) => {
+const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectValue, setSelectValue] = useState('');
 
