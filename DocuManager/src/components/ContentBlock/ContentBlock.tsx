@@ -5,14 +5,19 @@ import styles from './contentBlock.module.css';
 import documentData from '../../interfaces/documentData';
 import { getAllFiles } from '../../api/documentService';
 import { getFilesFromDir } from '../../api/documentService';
+import Loading from '../Loading/Loading';
 
 const ContentBlock: React.FC = () => {
   const [documentList, setDocumentList] = useState<documentData[]>([]);
   const [title, setTitle] = useState('Все документы');
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         let files: documentData[];
         if (id) {
@@ -24,6 +29,7 @@ const ContentBlock: React.FC = () => {
           setTitle('Все документы');
         }
         setDocumentList(files);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error); // TODO ERROR
       }
@@ -47,6 +53,8 @@ const ContentBlock: React.FC = () => {
       );
     },
   };
+
+  if (isLoading) return <Loading type={'spinningBubbles'} color={'#bdbdbd'} />;
 
   return (
     <div className={styles.contentBlock}>
