@@ -16,7 +16,7 @@ function Navigation() {
   return (
     <>
       <h3>Категории</h3>
-      <ul className={styles.navBar}>
+      <ul className={styles.navigation}>
         {data.map((item) => (
           <CategoryItem key={item.resource_id} category={item.name} />
         ))}

@@ -1,3 +1,10 @@
 .categoryItem {
   padding: 10px;
+  padding-left: 0px;
+  list-style: none;
+  cursor: pointer;
+}
+.categoryItem:hover {
+  border-radius: 5px;
+  background-color: #5e5656;
 }
