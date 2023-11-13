@@ -4,7 +4,7 @@ export interface ResourceMetadata {
     public_resource: string;
   };
   created: string;
-  exif: Record<string, any>;
+  exif: Record<string, unknown>;
   modified: string;
   name: string;
   path: string;
@@ -12,3 +12,10 @@ export interface ResourceMetadata {
   revision: number;
   type: string;
 }
+export interface FileOrFolder {
+    name: string;
+    type: 'file' | 'dir';
+    size: number; 
+    created: string; 
+  } 
+
