@@ -5,7 +5,7 @@ interface DocumentItemProps {
   handlers: unknown;
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = ({ data, handlers }) => {
+const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRenamePanel, setIsOpenRenamePanel] = useState(false);
   const [isOpenMovePanel, setIsOpenMovePanel] = useState(false);
@@ -41,7 +41,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, handlers }) => {
     setNewNameValue('');
   };
 
-  const resetForm = () => {
+  const resetForms = () => {
     setIsOpenRenamePanel(false);
     setIsOpenMovePanel(false);
     setSelectValue('');
@@ -49,11 +49,11 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, handlers }) => {
   };
 
   const handleDeleteDocument = () => {
-    resetForm();
+    resetForms();
   };
 
   const handleViewDocument = () => {
-    resetForm();
+    resetForms();
   };
 
   return (
