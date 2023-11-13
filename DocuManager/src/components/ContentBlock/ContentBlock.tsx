@@ -16,11 +16,10 @@ function ContentBlock() {
       try {
         let files: documentData[];
         if (id) {
-          // Получение документов из категории
-          files = await getFilesFromDir(id);
-          setTitle(id);
+          const decodeId = decodeURIComponent(id);
+          files = await getFilesFromDir(decodeId);
+          setTitle(decodeId);
         } else {
-          // Получение всех документов
           files = await getAllFiles();
           setTitle('Все документы');
         }
@@ -57,7 +56,10 @@ function ContentBlock() {
           <>
             <DocumentItem key={item.name} />
             <span>
-              {item.name} <br />{' '}
+              {item.name} <br />
+            </span>
+            <span>
+              {item.id} <br />
             </span>
           </>
         ))}
