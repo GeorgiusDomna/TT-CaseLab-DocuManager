@@ -1,19 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { fetchFolderContents } from '../../api/documentService';
+import { ResourceMetadata } from '../../interfaces/blank';
+import { NavLink } from 'react-router-dom';
 import CategoryItem from '../CategoryItem/CategoryItem';
 import styles from './navigation.module.css';
+import categoryItemStyles from '../CategoryItem/categoryItem.module.css';
 
 function Navigation() {
-  const [categoryList, setCategoryList] = useState(['Frontend', 'Backend', 'Disign']);
-
+  const [data, setData] = useState<ResourceMetadata[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetchFolderContents();
+      setData(result || []);
+    };
+    fetchData();
+  }, []);
   return (
-    <div className={styles.navBar}>
+    <>
       <h3>Категории</h3>
-      <ul>
-        {categoryList.map((data, index) => (
-          <CategoryItem key={index} data={data} />
+      <ul className={styles.navBar}>
+        <li className={categoryItemStyles.categoryItem}>
+          <NavLink to={'/'}>Все категории</NavLink>
+        </li>
+        {data.map((item) => (
+          <CategoryItem key={item.resource_id} category={item.name} />
         ))}
       </ul>
-    </div>
+    </>
   );
 }
 
