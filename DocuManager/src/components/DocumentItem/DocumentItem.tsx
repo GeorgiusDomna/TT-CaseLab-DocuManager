@@ -2,9 +2,10 @@ import { ChangeEvent, useState } from 'react';
 import styles from './documentItem.module.css';
 interface DocumentItemProps {
   data: string;
+  handlers: unknown;
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
+const DocumentItem: React.FC<DocumentItemProps> = ({ data, handlers }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRenamePanel, setIsOpenRenamePanel] = useState(false);
   const [isOpenMovePanel, setIsOpenMovePanel] = useState(false);
