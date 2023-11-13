@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { fetchFolderContents } from '../../api/documentService';
 import { ResourceMetadata } from '../../interfaces/blank';
+import { NavLink } from 'react-router-dom';
 import CategoryItem from '../CategoryItem/CategoryItem';
 import styles from './navigation.module.css';
+import categoryItemStyles from '../CategoryItem/categoryItem.module.css';
 
 function Navigation() {
   const [data, setData] = useState<ResourceMetadata[]>([]);
@@ -17,6 +19,9 @@ function Navigation() {
     <>
       <h3>Категории</h3>
       <ul className={styles.navBar}>
+        <li className={categoryItemStyles.categoryItem}>
+          <NavLink to={'/'}>Все категории</NavLink>
+        </li>
         {data.map((item) => (
           <CategoryItem key={item.resource_id} category={item.name} />
         ))}

@@ -6,7 +6,7 @@ import documentData from '../../interfaces/documentData';
 import { getAllFiles } from '../../api/documentService';
 import { getFilesFromDir } from '../../api/documentService';
 
-function ContentBlock() {
+const ContentBlock: React.FC = () => {
   const [documentList, setDocumentList] = useState<documentData[]>([]);
   const [title, setTitle] = useState('Все документы');
   const { id } = useParams();
@@ -31,22 +31,22 @@ function ContentBlock() {
     fetchData();
   }, [id]);
 
-  // const handlers = {
-  //   addItem(data: documentData) {
-  //     setDocumentList((list) => [...list, data]);
-  //   },
-  //   deleteItem(id: number) {
-  //     setDocumentList((list) => list.filter((el) => el.id !== id));
-  //   },
-  //   renameItem(id: number, newName: string) {
-  //     setDocumentList((list) =>
-  //       list.map((el) => {
-  //         if (el.id === id) el.name = newName;
-  //         return el;
-  //       })
-  //     );
-  //   },
-  // };
+  const handlers = {
+    addItem(data: documentData) {
+      setDocumentList((list) => [...list, data]);
+    },
+    deleteItem(name: string) {
+      setDocumentList((list) => list.filter((el) => el.name !== name));
+    },
+    renameItem(oldName: string, newName: string) {
+      setDocumentList((list) =>
+        list.map((el) => {
+          if (el.name === oldName) el.name = newName;
+          return el;
+        })
+      );
+    },
+  };
 
   return (
     <div className={styles.contentBlock}>
@@ -54,18 +54,12 @@ function ContentBlock() {
       <ul className={styles.contentBlock__documentList}>
         {documentList.map((item) => (
           <>
-            <DocumentItem key={item.name} />
-            <span>
-              {item.name} <br />
-            </span>
-            <span>
-              {item.id} <br />
-            </span>
+            <DocumentItem key={item.name} data={item.name} handlers={handlers} />
           </>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default ContentBlock;

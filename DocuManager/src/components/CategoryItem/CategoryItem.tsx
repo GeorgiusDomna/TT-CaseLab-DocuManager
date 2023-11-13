@@ -2,15 +2,15 @@ import styles from './categoryItem.module.css';
 import { NavLink } from 'react-router-dom';
 
 interface CategoryItemProps {
-  data: string;
+  category: string;
 }
 
-const CategoryItem: React.FC<CategoryItemProps> = ({ data }) => {
-  const encodeData = encodeURIComponent(data);
+const CategoryItem: React.FC<CategoryItemProps> = ({ category }) => {
+  const encodeData = encodeURIComponent(category);
   return (
-    <div className={styles.categoryItem}>
-      <NavLink to={data === 'Все категории' ? '/' : `/categories/${encodeData}`}>{data}</NavLink>
-    </div>
+    <li className={styles.categoryItem}>
+      <NavLink to={`/categories/${encodeData}`}>{category}</NavLink>
+    </li>
   );
 };
 
