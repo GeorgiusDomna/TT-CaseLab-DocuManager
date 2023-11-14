@@ -84,6 +84,11 @@
   background-size: 24px 18px;
 }
 
+.document__buttonIcon_type_rename {
+  background-image: url('@/assets/edit.svg');
+  background-size: 24px 24px;
+}
+
 .document__buttonIcon_type_toggle {
   background-image: url('@/assets/toggle.svg');
   background-size: 24px 20px;
@@ -113,7 +118,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  max-width: 337px;
+  max-width: 21rem;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.30);
 }
