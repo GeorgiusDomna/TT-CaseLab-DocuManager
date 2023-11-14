@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { fetchFolderContents } from '../../api/documentService';
 import { ResourceMetadata } from '../../interfaces/blank';
-//import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import CategoryItem from '../CategoryItem/CategoryItem';
 import styles from './navigation.module.css';
-//import categoryItemStyles from '../CategoryItem/categoryItem.module.css';
+import categoryItemStyles from '../CategoryItem/categoryItem.module.css';
 
 function Navigation() {
   const [data, setData] = useState<ResourceMetadata[]>([]);

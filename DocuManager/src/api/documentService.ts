@@ -57,8 +57,7 @@ export async function fetchFolderContents() {
     const data = (await response.json()) as { _embedded: { items: ResourceMetadata[] } };
     const contents = data._embedded.items;
     return contents;
-
-  } catch (error: any) {
+  } catch (error) {
     console.error('Ошибка при получении содержимого папки "CaseLab":', error.message);
   }
 }
