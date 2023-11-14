@@ -3,8 +3,29 @@
   padding-left: 0px;
   list-style: none;
   cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
 }
+
+.categoryItem a{
+  text-decoration:none;
+}
+
 .categoryItem:hover {
   border-radius: 5px;
-  background-color: #5e5656;
+  background-color: #a59b9b5b;
+}
+.categoryIcon{
+  background-image: url('@/assets/folder.svg');
+  background-repeat: no-repeat;
+  padding-left: 30px;
+  width: 30px;
+  height: 30px;
+}
+.active{
+  background-image: url('@/assets/folder_clicked.svg');
+  background-repeat: no-repeat;
+  padding-left: 30px;
+  width: 30px;
+  height: 30px;
 }
