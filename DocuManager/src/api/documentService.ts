@@ -4,7 +4,7 @@ import { ResourceMetadata } from '../interfaces/blank';
 import { isOnline } from '../utils/blank';
 
 const OAuth_token: string = import.meta.env.VITE_OAUTH_TOKEN;
-const url = 'https://cloud-api.yandex.net/v1/disk/resources';
+const baseUrl = 'https://cloud-api.yandex.net/v1/disk/resources';
 
 const headers: Headers = new Headers();
 headers.set('Accept', 'application/json');
@@ -13,7 +13,8 @@ headers.set('Authorization', OAuth_token);
 
 export async function getFilesFromDir(category: string) {
   try {
-    const response = await fetch(url + '?path=disk:/CaseLabDocuments/' + category, {
+    if (!isOnline()) throw new NetworkError();
+    const response = await fetch(baseUrl + '?path=disk:/CaseLabDocuments/' + category, {
       method: 'GET',
       headers: headers,
     });
@@ -30,7 +31,8 @@ export async function getFilesFromDir(category: string) {
 
 export async function getAllFiles() {
   try {
-    const response = await fetch(url + '/files', {
+    if (!isOnline()) throw new NetworkError();
+    const response = await fetch(baseUrl + '/files', {
       method: 'GET',
       headers: headers,
     });
@@ -46,10 +48,9 @@ export async function getAllFiles() {
 }
 
 export async function fetchFolderContents() {
-  if (!isOnline()) throw new NetworkError();
-
-  const url: string = 'https://cloud-api.yandex.net/v1/disk/resources?path=/CaseLabDocuments';
   try {
+    if (!isOnline()) throw new NetworkError();
+    const url: string = `${baseUrl}?path=/CaseLabDocuments`;
     const response = await fetch(url, {
       method: 'GET',
       headers,
@@ -89,7 +90,7 @@ export async function fetchFolderContents() {
 export async function createNewCategory(nameCategory: string): Promise<boolean | undefined> {
   try {
     if (!isOnline()) throw new NetworkError();
-    const URL: string = `${url}?path=CaseLabDocuments%2F${nameCategory}`;
+    const URL: string = `${baseUrl}?path=CaseLabDocuments%2F${nameCategory}`;
     const response = await fetch(URL, {
       method: 'PUT',
       headers,
