@@ -1,20 +1,24 @@
 import { ChangeEvent, FormEvent } from 'react';
 import Button from '../Button/Button';
-import Form from '../Form/Form';
 import styles from './formrenamedocument.module.css';
 
 interface FormRenameDocumentProps {
   newNameValue: string;
+  name: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const FormRenameDocument: React.FC<FormRenameDocumentProps> = ({ newNameValue, onChange }) => {
+const FormRenameDocument: React.FC<FormRenameDocumentProps> = ({
+  newNameValue,
+  name,
+  onChange,
+}) => {
   const handleRenameDocument = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
 
   return (
-    <Form name='form-rename' onSubmit={handleRenameDocument}>
+    <form className={styles.document__form} name={name} onSubmit={handleRenameDocument}>
       <input
         className={styles.document__input}
         type='text'
@@ -23,7 +27,7 @@ const FormRenameDocument: React.FC<FormRenameDocumentProps> = ({ newNameValue, o
         onChange={onChange}
       />
       <Button text='Переименовать' type='submit' disabled={!newNameValue} />
-    </Form>
+    </form>
   );
 };
 

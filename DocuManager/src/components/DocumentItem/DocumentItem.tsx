@@ -110,10 +110,14 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
         </ul>
       </div>
       {isOpenMovePanel && (
-        <FormMoveDocument selectValue={selectValue} onChange={handleSelectValue} />
+        <FormMoveDocument name='form-move' selectValue={selectValue} onChange={handleSelectValue} />
       )}
       {isOpenRenamePanel && (
-        <FormRenameDocument newNameValue={newNameValue} onChange={handleChangeNewNameValue} />
+        <FormRenameDocument
+          name='form-rename'
+          newNameValue={newNameValue}
+          onChange={handleChangeNewNameValue}
+        />
       )}
     </li>
   );

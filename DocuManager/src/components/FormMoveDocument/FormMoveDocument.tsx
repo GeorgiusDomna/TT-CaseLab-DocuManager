@@ -1,20 +1,20 @@
 import { ChangeEvent, FormEvent } from 'react';
 import Button from '../Button/Button';
-import Form from '../Form/Form';
 import styles from './formmovedocument.module.css';
 
 interface FormMoveDocumentProps {
   selectValue: string;
+  name: string;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({ selectValue, onChange }) => {
+const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({ selectValue, name, onChange }) => {
   const handleMoveDocument = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
 
   return (
-    <Form name='form-move' onSubmit={handleMoveDocument}>
+    <form className={styles.document__form} name={name} onSubmit={handleMoveDocument}>
       <select
         className={styles.document__select}
         name='select-change-document'
@@ -27,7 +27,7 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({ selectValue, onChan
         <option value='1'>Главная папка</option>
       </select>
       <Button text='Переместить' type='submit' disabled={!selectValue} />
-    </Form>
+    </form>
   );
 };
 
