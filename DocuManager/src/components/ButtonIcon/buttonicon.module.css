@@ -1,0 +1,40 @@
+.document__buttonIcon {
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.document__buttonIcon:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.document__buttonIcon_type_option {
+  background-image: url('@/assets/option.svg');
+  background-size: 24px 24px;
+}
+
+.document__buttonIcon_type_view {
+  background-image: url('@/assets/view.svg');
+  background-size: 24px 18px;
+}
+
+.document__buttonIcon_type_rename {
+  background-image: url('@/assets/edit.svg');
+  background-size: 24px 24px;
+}
+
+.document__buttonIcon_type_move {
+  background-image: url('@/assets/toggle.svg');
+  background-size: 24px 20px;
+}
+
+.document__buttonIcon_type_delete {
+  background-image: url('@/assets/busket.svg');
+  background-size: 19px 21px;
+}
