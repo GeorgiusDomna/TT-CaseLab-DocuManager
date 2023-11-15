@@ -1,0 +1,10 @@
+.document__form {
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ECECEC;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+}
