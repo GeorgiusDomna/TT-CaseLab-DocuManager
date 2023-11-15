@@ -23,6 +23,10 @@
 
 /* BUTTONS */
 
+.categoryCreator_buttonsContainer {
+  display: flex;
+  gap: 10px;
+}
 .categoryCreator_button {
   padding: 9px 15px;
   font-size: 15px;
@@ -30,11 +34,11 @@
   border: none;
   cursor: pointer;
   transition: 0.5s;
-  box-shadow: 0px 0px 10px rgb(194, 194, 194); 
+  box-shadow: 0px 2px 5px rgb(194, 194, 194); 
 }
 .categoryCreator_button:hover {
   transform: scale(1.005, 1.005);
-  box-shadow: 0px 10px 10px rgb(194, 194, 194);
+  box-shadow: 0px 8px 10px rgb(194, 194, 194);
 }
 .categoryCreator_button:active {
   transform: scale(0.95,0.95);
@@ -48,7 +52,7 @@
   background-color: #ffffff;
 }
 .categoryCreator_openButton:hover {
-  background-color: #f1f1f1;
+  background-color: #f2f2f2;
 }
 .categoryCreator_openButton_icon {
   width: 20px;

@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styles from './newCategoryCreator.module.css';
+import { createNewCategory } from '@/api/documentService';
 
 function NewCategoryCreator(): React.ReactNode {
   const [isCategoryCreatorOpen, setCategoryCreatorOpen] = useState<boolean>(false);
@@ -8,6 +9,7 @@ function NewCategoryCreator(): React.ReactNode {
 
   const toggleCategoryCreator = () => {
     setCategoryCreatorOpen(!isCategoryCreatorOpen);
+    isCategoryCreatorOpen && setNewNameCategory('');
   };
 
   useEffect(() => {
@@ -18,11 +20,12 @@ function NewCategoryCreator(): React.ReactNode {
     setNewNameCategory(event.target.value);
   };
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    toggleCategoryCreator();
-    // отправка запроса на сервер
-    setNewNameCategory('');
+    if (await createNewCategory(newNameCategory)) {
+      console.log(newNameCategory); /// Добавление новой категории в стейт приложения
+      toggleCategoryCreator();
+    }
   };
 
   return (
@@ -47,13 +50,24 @@ function NewCategoryCreator(): React.ReactNode {
             value={newNameCategory}
             onChange={handleChangeNewNameValue}
           />
-          <button
-            className={[styles.categoryCreator_button, styles.categoryCreator_submitButton].join(' ')}
-            type='submit'
-            title='Создать'
-          >
-            Создать
-          </button>
+          <div className={styles.categoryCreator_buttonsContainer}>
+            <button
+              className={[styles.categoryCreator_button, styles.categoryCreator_submitButton].join(' ')}
+              onClick={toggleCategoryCreator}
+              type='button'
+              title='Отмена'
+            >
+              Отмена
+            </button>
+            <button
+              className={[styles.categoryCreator_button, styles.categoryCreator_submitButton].join(' ')}
+              type='submit'
+              title='Создать'
+              disabled={!newNameCategory}
+            >
+              Создать
+            </button>
+          </div>
         </form>
       )}
     </div>
