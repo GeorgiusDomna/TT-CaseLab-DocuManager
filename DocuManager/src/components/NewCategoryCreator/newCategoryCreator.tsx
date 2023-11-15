@@ -1,8 +1,14 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styles from './newCategoryCreator.module.css';
 import { createNewCategory } from '@/api/documentService';
+import { IResourceMetadata } from '@/interfaces/IResourceMetadata';
 
-function NewCategoryCreator(): React.ReactNode {
+interface INewCategoryCreatorProps {
+  categoryList: IResourceMetadata[];
+  setCategoryList: React.Dispatch<React.SetStateAction<IResourceMetadata[]>>;
+}
+
+function NewCategoryCreator({categoryList, setCategoryList}: INewCategoryCreatorProps): React.ReactElement {
   const [isCategoryCreatorOpen, setCategoryCreatorOpen] = useState<boolean>(false);
   const [newNameCategory, setNewNameCategory] = useState<string>('');
   const newCategoryInput = useRef<HTMLInputElement | null>(null);
@@ -23,7 +29,7 @@ function NewCategoryCreator(): React.ReactNode {
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (await createNewCategory(newNameCategory)) {
-      console.log(newNameCategory); /// Добавление новой категории в стейт приложения
+      setCategoryList([...categoryList, {name: newNameCategory}]); /// Здесь должен быть запрос на сервер за данными новой категории и пуш их в стейт categoryList
       toggleCategoryCreator();
     }
   };
@@ -38,7 +44,7 @@ function NewCategoryCreator(): React.ReactNode {
           onClick={toggleCategoryCreator}
         >
           <div className={styles.categoryCreator_openButton_icon}></div>
-          Создать новую категорию
+          <span>Создать новую категорию</span>
         </button>
       ) : (
         <form onSubmit={handleFormSubmit} className={styles.categoryCreator_form}>

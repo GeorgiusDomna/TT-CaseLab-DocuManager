@@ -55,11 +55,11 @@
   background-color: #f2f2f2;
 }
 .categoryCreator_openButton_icon {
-  width: 20px;
-  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
   background-image: url('@/assets/create-category.svg');
   background-repeat: no-repeat;
-  background-size: 20px;
+  background-size: cover;
 }
 
 .categoryCreator_submitButton {

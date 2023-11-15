@@ -1,7 +1,7 @@
 import { IFailedServerResponse } from '@/interfaces/IFailedServerResponse';
-import { NetworkError } from '../errors/NetworkError';
-import { ResourceMetadata } from '../interfaces/blank';
-import { isOnline } from '../utils/blank';
+import { NetworkError } from '@/errors/NetworkError';
+import { IResourceMetadata } from '@/interfaces/IResourceMetadata';
+import { isOnline } from '@/utils/blank';
 
 const OAuth_token: string = import.meta.env.VITE_OAUTH_TOKEN;
 const baseUrl = 'https://cloud-api.yandex.net/v1/disk/resources';
@@ -56,7 +56,7 @@ export async function fetchFolderContents() {
       headers,
     });
     if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
-    const data = (await response.json()) as { _embedded: { items: ResourceMetadata[] } };
+    const data = (await response.json()) as { _embedded: { items: IResourceMetadata[] } };
     const contents = data._embedded.items;
     return contents;
   } catch (error) {
