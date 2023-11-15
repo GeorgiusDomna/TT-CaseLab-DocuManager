@@ -1,0 +1,31 @@
+.footer {
+    width: 1440px;
+    height: auto;
+    margin: 0 auto;
+    display: grid;
+    justify-content: center;
+    background-color: #584646;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 10px 10px 25px rgb(151, 151, 151);
+  }
+
+  .footer h1{
+    font-size: 17px;
+    color: white;
+    padding-right: 5px;
+  }
+
+  .footer a {
+    text-decoration: none;
+  }
+
+  .contentGit{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .contentCaseLab{
+    display:flex;
+  }
