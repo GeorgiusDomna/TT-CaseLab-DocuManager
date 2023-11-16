@@ -1,4 +1,6 @@
 import { ChangeEvent, FormEvent } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Localization } from '@/enums/Localization';
 import Button from '../Button/Button';
 import styles from './formmovedocument.module.css';
 
@@ -13,6 +15,8 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({ selectValue, name, 
     event.preventDefault();
   };
 
+  const { t } = useTranslation();
+
   return (
     <form className={styles.document__form} name={name} onSubmit={handleMoveDocument}>
       <select
@@ -22,11 +26,11 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({ selectValue, name, 
         defaultValue=''
       >
         <option className={styles.document__option} disabled value=''>
-          Выберите категорию
+          {t(Localization.CHOOSE_CATEGORY)}
         </option>
-        <option value='1'>Главная папка</option>
+        <option value='1'>{t(Localization.MAIN_FOLDER)}</option>
       </select>
-      <Button text='Переместить' type='submit' disabled={!selectValue} />
+      <Button text={t(Localization.MOVE)} type='submit' disabled={!selectValue} />
     </form>
   );
 };

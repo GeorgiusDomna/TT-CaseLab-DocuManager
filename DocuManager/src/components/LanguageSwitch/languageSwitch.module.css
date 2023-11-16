@@ -1,0 +1,18 @@
+.language {
+  width: 80px;
+  display: flex;
+  align-items: end;
+  justify-content: space-around;
+  align-self: center;
+  flex-grow: 1;
+}
+
+.language button {
+  border: none;
+  background-color: transparent;
+}
+
+.lngActive {
+  text-decoration: underline;
+  font-weight: bold;
+}

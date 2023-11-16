@@ -3,6 +3,9 @@ import styles from './documentItem.module.css';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import FormRenameDocument from '../FormRenameDocument/FormRenameDocument';
 import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
+import { useTranslation } from 'react-i18next';
+import { Localization } from '@/enums/Localization';
+
 interface DocumentItemProps {
   data: string;
   handlers: unknown;
@@ -15,6 +18,8 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
 
   const [selectValue, setSelectValue] = useState('');
   const [newNameValue, setNewNameValue] = useState('');
+
+  const { t } = useTranslation();
 
   const handleSelectValue = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectValue(event.target.value);
@@ -63,25 +68,25 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
     {
       id: 1,
       typeStyle: 'view',
-      title: 'Просмотреть документ',
+      title: t(Localization.SEE),
       onClick: handleViewDocument,
     },
     {
       id: 2,
       typeStyle: 'rename',
-      title: 'Переименовать документ',
+      title: t(Localization.RENAME_DOC),
       onClick: toggleRenamePanel,
     },
     {
       id: 3,
       typeStyle: 'move',
-      title: 'Переместить документ',
+      title: t(Localization.MOVE_DOC),
       onClick: toggleMovePanel,
     },
     {
       id: 4,
       typeStyle: 'delete',
-      title: 'Удалить документ',
+      title: t(Localization.DELETE),
       onClick: handleDeleteDocument,
     },
   ];
@@ -103,7 +108,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
           <li>
             <ButtonIcon
               typeStyle='option'
-              title='Открыть панель взаимодействия с документом'
+              title={t(Localization.SETTINGS)}
               onClick={toggleOption}
             />
           </li>

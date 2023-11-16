@@ -1,4 +1,6 @@
 import { ChangeEvent, FormEvent } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Localization } from '@/enums/Localization';
 import Button from '../Button/Button';
 import styles from './formrenamedocument.module.css';
 
@@ -17,16 +19,18 @@ const FormRenameDocument: React.FC<FormRenameDocumentProps> = ({
     event.preventDefault();
   };
 
+  const { t } = useTranslation();
+
   return (
     <form className={styles.document__form} name={name} onSubmit={handleRenameDocument}>
       <input
         className={styles.document__input}
         type='text'
-        placeholder='Новое название'
+        placeholder={t(Localization.NEW_NAME)}
         value={newNameValue}
         onChange={onChange}
       />
-      <Button text='Переименовать' type='submit' disabled={!newNameValue} />
+      <Button text={t(Localization.RENAME)} type='submit' disabled={!newNameValue} />
     </form>
   );
 };
