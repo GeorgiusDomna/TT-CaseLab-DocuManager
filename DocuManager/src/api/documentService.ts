@@ -29,7 +29,7 @@ export async function getFilesFromDir(category: string) {
   }
 }
 
-export async function getBasket() {
+export async function getFilesFromBasket() {
   try {
     if (!isOnline()) throw new NetworkError();
     const response = await fetch(baseUrl.replace('resources', 'trash') + '/resources?path=%2F', {
@@ -40,7 +40,7 @@ export async function getBasket() {
       throw new Error(`Request failed with status ${response.status}`);
     }
     const data = await response.json();
-    return data._embedded;
+    return data._embedded.items;
   } catch (error) {
     console.error('Fetch error:', error); // Здесь будет кастомный алерт
     throw error;
