@@ -19,6 +19,9 @@ function Navigation({ categoryList }: INavigationProps): React.ReactElement {
         {categoryList.map((item) => (
           <CategoryItem key={item.name} category={item.name} />
         ))}
+        <li className={categoryItemStyles.categoryItem}>
+          <NavLink to={'/trash'}>Корзина</NavLink>
+        </li>
       </ul>
     </>
   );
