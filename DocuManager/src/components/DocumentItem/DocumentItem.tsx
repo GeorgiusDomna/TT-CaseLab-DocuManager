@@ -9,6 +9,7 @@ import { Localization } from '@/enums/Localization';
 interface DocumentItemProps {
   data: string;
   handlers: unknown;
+  currentCategory: string;
 }
 
 const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
