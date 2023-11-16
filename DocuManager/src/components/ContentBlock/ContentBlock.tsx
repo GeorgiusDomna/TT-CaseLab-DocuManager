@@ -1,32 +1,51 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import DocumentItem from '../DocumentItem/DocumentItem';
 import styles from './contentBlock.module.css';
 import documentData from '../../interfaces/documentData';
-import { getAllFiles } from '../../api/documentService';
+import { getAllFiles, getFilesFromBasket } from '../../api/documentService';
 import { getFilesFromDir } from '../../api/documentService';
 import Loading from '../Loading/Loading';
+import { useLocation } from 'react-router-dom';
+import { Localization } from '@/enums/Localization';
 
 const ContentBlock: React.FC = () => {
+  const { t } = useTranslation();
   const [documentList, setDocumentList] = useState<documentData[]>([]);
-  const [title, setTitle] = useState('Все документы');
+  const [title, setTitle] = useState(t(Localization.ALL_DOCUMENTS));
 
   const [isLoading, setIsLoading] = useState(false);
 
   const { id } = useParams();
 
+  const location = useLocation();
+
+  useEffect(() => {
+    if (title === 'Все документы' || title === 'All documents') {
+      setTitle(t(Localization.ALL_DOCUMENTS));
+    }
+    if (title === 'Корзина' || title === 'Basket') {
+      setTitle(t(Localization.BASKET));
+    }
+  }, [t]);
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
+      const route = location.pathname;
       try {
         let files: documentData[];
-        if (id) {
+        if (route === '/') {
+          files = await getAllFiles();
+          setTitle(t(Localization.ALL_DOCUMENTS));
+        } else if (route === '/trash') {
+          files = await getFilesFromBasket();
+          setTitle(t(Localization.BASKET));
+        } else {
           const decodeId = decodeURIComponent(id);
           files = await getFilesFromDir(decodeId);
           setTitle(decodeId);
-        } else {
-          files = await getAllFiles();
-          setTitle('Все документы');
         }
         setDocumentList(files);
         setIsLoading(false);
@@ -35,7 +54,7 @@ const ContentBlock: React.FC = () => {
       }
     };
     fetchData();
-  }, [id]);
+  }, [location]);
 
   const handlers = {
     addItem(data: documentData) {

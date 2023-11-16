@@ -1,6 +1,11 @@
 import { ChangeEvent, useState } from 'react';
 import styles from './documentItem.module.css';
 import ModalWindow from '../ModalWindow/ModalWindow';
+import ButtonIcon from '../ButtonIcon/ButtonIcon';
+import FormRenameDocument from '../FormRenameDocument/FormRenameDocument';
+import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
+import { useTranslation } from 'react-i18next';
+import { Localization } from '@/enums/Localization';
 
 interface DocumentItemProps {
   data: string;
@@ -16,6 +21,8 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
 
   const [selectValue, setSelectValue] = useState('');
   const [newNameValue, setNewNameValue] = useState('');
+
+  const { t } = useTranslation();
 
   const handleSelectValue = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectValue(event.target.value);
@@ -64,6 +71,33 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
     resetForms();
   };
 
+  const buttonsIcon = [
+    {
+      id: 1,
+      typeStyle: 'view',
+      title: t(Localization.SEE),
+      onClick: handleViewDocument,
+    },
+    {
+      id: 2,
+      typeStyle: 'rename',
+      title: t(Localization.RENAME_DOC),
+      onClick: toggleRenamePanel,
+    },
+    {
+      id: 3,
+      typeStyle: 'move',
+      title: t(Localization.MOVE_DOC),
+      onClick: toggleMovePanel,
+    },
+    {
+      id: 4,
+      typeStyle: 'delete',
+      title: t(Localization.DELETE),
+      onClick: handleDeleteDocument,
+    },
+  ];
+
   return (
     <li className={styles.document}>
       <div className={`${styles.document__item} ${isOpen ? styles.document__item_opened : ''}`}>
@@ -72,107 +106,37 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
           <p className={styles.document__title}>{data}</p>
         </div>
         <ul className={styles.document__buttons}>
-          {isOpen && (
-            <>
-              <li>
-                <button
-                  className={[
-                    styles.document__buttonIcon,
-                    styles.document__buttonIcon_type_view,
-                  ].join(' ')}
-                  type='button'
-                  title='Просмотреть документ'
-                  onClick={handleViewDocument}
-                ></button>
+          {isOpen &&
+            buttonsIcon.map(({ id, typeStyle, title, onClick }) => (
+              <li key={id}>
+                <ButtonIcon typeStyle={typeStyle} title={title} onClick={onClick} />
               </li>
-              <li>
-                <button
-                  className={[
-                    styles.document__buttonIcon,
-                    styles.document__buttonIcon_type_rename,
-                  ].join(' ')}
-                  type='button'
-                  title='Переименовать документ'
-                  onClick={toggleRenamePanel}
-                ></button>
-              </li>
-              <li>
-                <button
-                  className={[
-                    styles.document__buttonIcon,
-                    styles.document__buttonIcon_type_toggle,
-                  ].join(' ')}
-                  type='button'
-                  title='Переместить документ'
-                  onClick={toggleMovePanel}
-                ></button>
-              </li>
-              <li>
-                <button
-                  className={[
-                    styles.document__buttonIcon,
-                    styles.document__buttonIcon_type_busket,
-                  ].join(' ')}
-                  type='button'
-                  title='Удалить документ'
-                  onClick={handleDeleteDocument}
-                ></button>
-              </li>
-            </>
-          )}
+            ))}
           <li>
-            <button
-              className={[
-                styles.document__buttonIcon,
-                styles.document__buttonIcon_type_option,
-              ].join(' ')}
-              type='button'
-              title='Открыть панель взаимодействия с документом'
+            <ButtonIcon
+              typeStyle='option'
+              title={t(Localization.SETTINGS)}
               onClick={toggleOption}
-            ></button>
+            />
           </li>
         </ul>
       </div>
       {isOpenMovePanel && (
-        <form className={styles.document__form} name='change-document'>
-          <select
-            className={styles.document__select}
-            name='select-change-document'
-            onChange={handleSelectValue}
-            defaultValue=''
-          >
-            <option className={styles.document__option} disabled value=''>
-              Выберите категорию
-            </option>
-            <option value='1'>Главная папка</option>
-          </select>
-          <button className={styles.document__button} type='submit' disabled={!selectValue}>
-            Переместить
-          </button>
-        </form>
+        <FormMoveDocument name='form-move' selectValue={selectValue} onChange={handleSelectValue} />
       )}
       {isOpenRenamePanel && (
-        <form className={styles.document__form} name='change-document'>
-          <input
-            className={styles.document__select}
-            type='text'
-            placeholder='Новое название'
-            value={newNameValue}
-            onChange={handleChangeNewNameValue}
-          />
-          <button className={styles.document__button} type='submit' disabled={!newNameValue}>
-            Переименовать
-          </button>
-        </form>
+        <FormRenameDocument
+          name='form-rename'
+          newNameValue={newNameValue}
+          onChange={handleChangeNewNameValue}
+        />
       )}
-      {isOpenModalWindow && (
-        <ModalWindow
-          data={data}
-          isOpenModalWindow={isOpenModalWindow}
-          closeModalWindow={closeModalWindow}
-          file={file}
-        ></ModalWindow>
-      )}
+      <ModalWindow
+        data={data}
+        isOpenModalWindow={isOpenModalWindow}
+        closeModalWindow={closeModalWindow}
+        file={file}
+      />
     </li>
   );
 };
