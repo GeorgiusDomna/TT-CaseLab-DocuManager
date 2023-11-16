@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import DocumentItem from '../DocumentItem/DocumentItem';
 import styles from './contentBlock.module.css';
 import documentData from '../../interfaces/documentData';
-import { getAllFiles } from '../../api/documentService';
+import { getAllFiles, getFilesFromBasket } from '../../api/documentService';
 import { getFilesFromDir } from '../../api/documentService';
 import Loading from '../Loading/Loading';
 
@@ -20,13 +20,19 @@ const ContentBlock: React.FC = () => {
       setIsLoading(true);
       try {
         let files: documentData[];
-        if (id) {
+        console.log(id);
+        if (id !== 'trash' && id) {
           const decodeId = decodeURIComponent(id);
           files = await getFilesFromDir(decodeId);
+          console.log(files);
           setTitle(decodeId);
         } else {
           files = await getAllFiles();
           setTitle('Все документы');
+        }
+        if (id === 'trash') {
+          files = await getFilesFromBasket();
+          setTitle('Корзина');
         }
         setDocumentList(files);
         setIsLoading(false);
