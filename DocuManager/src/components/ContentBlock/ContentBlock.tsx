@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import DocumentItem from '../DocumentItem/DocumentItem';
 import styles from './contentBlock.module.css';
 import documentData from '../../interfaces/documentData';
@@ -7,16 +8,24 @@ import { getAllFiles, getFilesFromBasket } from '../../api/documentService';
 import { getFilesFromDir } from '../../api/documentService';
 import Loading from '../Loading/Loading';
 import { useLocation } from 'react-router-dom';
+import { Localization } from '@/enums/Localization';
 
 const ContentBlock: React.FC = () => {
+  const { t } = useTranslation();
   const [documentList, setDocumentList] = useState<documentData[]>([]);
-  const [title, setTitle] = useState('Все документы');
+  const [title, setTitle] = useState(t(Localization.ALL_DOCUMENTS));
 
   const [isLoading, setIsLoading] = useState(false);
 
   const { id } = useParams();
 
   const location = useLocation();
+
+  useEffect(() => {
+    if (title === 'Все документы' || title === 'All documents') {
+      setTitle(t(Localization.ALL_DOCUMENTS));
+    }
+  }, [t]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,13 +35,12 @@ const ContentBlock: React.FC = () => {
         let files: documentData[];
         if (route === '/') {
           files = await getAllFiles();
-          setTitle('Все документы');
+          setTitle(t(Localization.ALL_DOCUMENTS));
         } else if (route === '/trash') {
           files = await getFilesFromBasket();
           setTitle('Корзина');
         } else {
           const decodeId = decodeURIComponent(id);
-          console.log(id);
           files = await getFilesFromDir(decodeId);
           setTitle(decodeId);
         }

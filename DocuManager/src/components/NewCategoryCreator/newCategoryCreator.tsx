@@ -2,15 +2,21 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styles from './newCategoryCreator.module.css';
 import { createNewCategory } from '@/api/documentService';
 import { IResourceMetadata } from '@/interfaces/IResourceMetadata';
+import { useTranslation } from 'react-i18next';
+import { Localization } from '@/enums/Localization';
 
 interface INewCategoryCreatorProps {
   categoryList: IResourceMetadata[];
   setCategoryList: React.Dispatch<React.SetStateAction<IResourceMetadata[]>>;
 }
 
-function NewCategoryCreator({categoryList, setCategoryList}: INewCategoryCreatorProps): React.ReactElement {
+function NewCategoryCreator({
+  categoryList,
+  setCategoryList,
+}: INewCategoryCreatorProps): React.ReactElement {
   const [isCategoryCreatorOpen, setCategoryCreatorOpen] = useState<boolean>(false);
   const [newNameCategory, setNewNameCategory] = useState<string>('');
+  const { t } = useTranslation();
   const newCategoryInput = useRef<HTMLInputElement | null>(null);
 
   const toggleCategoryCreator = () => {
@@ -29,7 +35,7 @@ function NewCategoryCreator({categoryList, setCategoryList}: INewCategoryCreator
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (await createNewCategory(newNameCategory)) {
-      setCategoryList([...categoryList, {name: newNameCategory}]); /// Здесь должен быть запрос на сервер за данными новой категории и пуш их в стейт categoryList
+      setCategoryList([...categoryList, { name: newNameCategory }]); /// Здесь должен быть запрос на сервер за данными новой категории и пуш их в стейт categoryList
       toggleCategoryCreator();
     }
   };
@@ -40,11 +46,11 @@ function NewCategoryCreator({categoryList, setCategoryList}: INewCategoryCreator
         <button
           className={[styles.categoryCreator_button, styles.categoryCreator_openButton].join(' ')}
           type='button'
-          title='Создать новую категорию'
+          title={t(Localization.CREATE_CATEGORY)}
           onClick={toggleCategoryCreator}
         >
           <div className={styles.categoryCreator_openButton_icon}></div>
-          <span>Создать новую категорию</span>
+          <span>{t(Localization.CREATE_CATEGORY)}</span>
         </button>
       ) : (
         <form onSubmit={handleFormSubmit} className={styles.categoryCreator_form}>
@@ -52,26 +58,30 @@ function NewCategoryCreator({categoryList, setCategoryList}: INewCategoryCreator
             ref={newCategoryInput}
             className={styles.categoryCreator_input}
             type='text'
-            placeholder='Название новой категории'
+            placeholder={t(Localization.CATEGORY_NAME)}
             value={newNameCategory}
             onChange={handleChangeNewNameValue}
           />
           <div className={styles.categoryCreator_buttonsContainer}>
             <button
-              className={[styles.categoryCreator_button, styles.categoryCreator_submitButton].join(' ')}
+              className={[styles.categoryCreator_button, styles.categoryCreator_submitButton].join(
+                ' '
+              )}
               onClick={toggleCategoryCreator}
               type='button'
-              title='Отмена'
+              title={t(Localization.CANCEL)}
             >
-              Отмена
+              {t(Localization.CANCEL)}
             </button>
             <button
-              className={[styles.categoryCreator_button, styles.categoryCreator_submitButton].join(' ')}
+              className={[styles.categoryCreator_button, styles.categoryCreator_submitButton].join(
+                ' '
+              )}
               type='submit'
-              title='Создать'
+              title={t(Localization.CREATE)}
               disabled={!newNameCategory}
             >
-              Создать
+              {t(Localization.CREATE)}
             </button>
           </div>
         </form>
