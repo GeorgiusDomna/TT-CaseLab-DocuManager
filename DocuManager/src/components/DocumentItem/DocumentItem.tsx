@@ -12,7 +12,7 @@ interface DocumentItemProps {
   currentCategory: string;
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
+const DocumentItem: React.FC<DocumentItemProps> = ({data, currentCategory}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRenamePanel, setIsOpenRenamePanel] = useState(false);
   const [isOpenMovePanel, setIsOpenMovePanel] = useState(false);
@@ -116,7 +116,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
         </ul>
       </div>
       {isOpenMovePanel && (
-        <FormMoveDocument name='form-move' selectValue={selectValue} onChange={handleSelectValue} />
+        <FormMoveDocument name='form-move' selectValue={selectValue} currentCategory={currentCategory} currentFile={data}  onChange={handleSelectValue} />
       )}
       {isOpenRenamePanel && (
         <FormRenameDocument
