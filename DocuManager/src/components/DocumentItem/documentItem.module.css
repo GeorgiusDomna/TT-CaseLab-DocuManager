@@ -149,28 +149,3 @@
   cursor: default;
   opacity: 1;
 }
-
-.modal{
-  background-color: #ececec;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-}
-
-.modal__close{
-  cursor: pointer;
-}
-
-.modal__header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px;
-}
-
-.modal__img{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-height: 80vh;
-}

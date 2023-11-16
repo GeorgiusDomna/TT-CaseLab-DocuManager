@@ -1,15 +1,14 @@
 import { ChangeEvent, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Modal from 'react-modal';
 import styles from './documentItem.module.css';
-import { getAllFiles, getFilesFromDir } from '../../api/documentService';
+import ModalWindow from '../ModalWindow/ModalWindow';
 
 interface DocumentItemProps {
   data: string;
   handlers: unknown;
+  file: string;
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
+const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRenamePanel, setIsOpenRenamePanel] = useState(false);
   const [isOpenMovePanel, setIsOpenMovePanel] = useState(false);
@@ -24,6 +23,14 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
 
   const handleChangeNewNameValue = (event: ChangeEvent<HTMLInputElement>) => {
     setNewNameValue(event.target.value);
+  };
+
+  const handleViewDocument = () => {
+    setIsOpenModalWindow(true);
+  };
+
+  const closeModalWindow = () => {
+    setIsOpenModalWindow(false);
   };
 
   const toggleOption = () => {
@@ -57,37 +64,6 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
     resetForms();
   };
 
-  const [src, setSrc] = useState('');
-  const id = useParams().id;
-
-  const handleViewDocument = async () => {
-    resetForms();
-    openModalWindow();
-    if (id) {
-      const files = await getFilesFromDir(id);
-      files.forEach((item: typeof files) => {
-        if (data === item.name) {
-          setSrc(item.file);
-        }
-      });
-    } else {
-      const files = await getAllFiles();
-      files.forEach((item: typeof files) => {
-        if (data === item.name) {
-          setSrc(item.file);
-        }
-      });
-    }
-  };
-
-  const openModalWindow = () => {
-    setIsOpenModalWindow(true);
-  };
-
-  const closeModalWindow = () => {
-    setIsOpenModalWindow(false);
-  };
-
   return (
     <li className={styles.document}>
       <div className={`${styles.document__item} ${isOpen ? styles.document__item_opened : ''}`}>
@@ -109,24 +85,6 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
                   onClick={handleViewDocument}
                 ></button>
               </li>
-              <Modal
-                isOpen={isOpenModalWindow}
-                onRequestClose={closeModalWindow}
-                contentLabel='Модальное окно'
-                className={styles.modal}
-              >
-                <div className={styles.modal__header}>
-                  <h3>{data}</h3>
-                  <img
-                    src={'../../src/assets/close.svg'}
-                    className={styles.modal__close}
-                    onClick={closeModalWindow}
-                  />
-                </div>
-                <div className={styles.modal__img}>
-                  <img src={src} className={styles.modal__img} />
-                </div>
-              </Modal>
               <li>
                 <button
                   className={[
@@ -206,6 +164,14 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
             Переименовать
           </button>
         </form>
+      )}
+      {isOpenModalWindow && (
+        <ModalWindow
+          data={data}
+          isOpenModalWindow={isOpenModalWindow}
+          closeModalWindow={closeModalWindow}
+          file={file}
+        ></ModalWindow>
       )}
     </li>
   );
