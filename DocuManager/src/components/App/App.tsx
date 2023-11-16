@@ -10,6 +10,7 @@ function App() {
       <Routes>
         <Route path='/' element={<ContentBlock />} />
         <Route path='/categories/:id?' element={<ContentBlock />} />
+        <Route path='/trash' element={<ContentBlock />} />
       </Routes>
     </div>
   );
