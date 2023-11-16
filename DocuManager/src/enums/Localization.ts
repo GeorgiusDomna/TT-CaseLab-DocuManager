@@ -15,4 +15,5 @@ export enum Localization {
   MAIN_FOLDER = 'Main folder',
   MOVE = 'Move',
   CHOOSE_CATEGORY = 'Choose a category',
+  BASKET = 'Basket',
 }

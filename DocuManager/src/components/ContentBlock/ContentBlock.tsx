@@ -25,6 +25,9 @@ const ContentBlock: React.FC = () => {
     if (title === 'Все документы' || title === 'All documents') {
       setTitle(t(Localization.ALL_DOCUMENTS));
     }
+    if (title === 'Корзина' || title === 'Basket') {
+      setTitle(t(Localization.BASKET));
+    }
   }, [t]);
 
   useEffect(() => {
@@ -38,7 +41,7 @@ const ContentBlock: React.FC = () => {
           setTitle(t(Localization.ALL_DOCUMENTS));
         } else if (route === '/trash') {
           files = await getFilesFromBasket();
-          setTitle('Корзина');
+          setTitle(t(Localization.BASKET));
         } else {
           const decodeId = decodeURIComponent(id);
           files = await getFilesFromDir(decodeId);
