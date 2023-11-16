@@ -1,3 +1,43 @@
 .categoryItem {
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 15px;
+  font-size: 17px;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.1s ease-in;
+  color: black;
+}
+.categoryItem_icon {
+  min-width: 25px;
+  min-height: 25px;
+  background-size: 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.categoryItem:hover {
+  transform: scale(1.015, 1.015);
+  background-color: rgb(230, 230, 230);
+}
+.active {
+  background-color: rgb(224, 224, 224);
+}
+
+.categoryItem_icon_default,
+.categoryItem_icon_allFiles {
+  background-image: url('@/assets/dir.svg');
+}
+.active .categoryItem_icon_default,
+.active .categoryItem_icon_allFiles {
+  background-image: url('@/assets/dir-active.svg');
+}
+
+.categoryItem_icon_trash {
+  background-image: url('@/assets/trash.svg');
+  background-size: 28px;
+}
+.active .categoryItem_icon_trash {
+  background-image: url('@/assets/trash-active.svg');
 }
