@@ -6,6 +6,7 @@ import documentData from '../../interfaces/documentData';
 import { getAllFiles, getFilesFromBasket } from '../../api/documentService';
 import { getFilesFromDir } from '../../api/documentService';
 import Loading from '../Loading/Loading';
+import { useLocation } from 'react-router-dom';
 
 const ContentBlock: React.FC = () => {
   const [documentList, setDocumentList] = useState<documentData[]>([]);
@@ -15,24 +16,25 @@ const ContentBlock: React.FC = () => {
 
   const { id } = useParams();
 
+  const location = useLocation();
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
+      const route = location.pathname;
       try {
         let files: documentData[];
-        console.log(id);
-        if (id !== 'trash' && id) {
-          const decodeId = decodeURIComponent(id);
-          files = await getFilesFromDir(decodeId);
-          console.log(files);
-          setTitle(decodeId);
-        } else {
+        if (route === '/') {
           files = await getAllFiles();
           setTitle('Все документы');
-        }
-        if (id === 'trash') {
+        } else if (route === '/trash') {
           files = await getFilesFromBasket();
           setTitle('Корзина');
+        } else {
+          const decodeId = decodeURIComponent(id);
+          console.log(id);
+          files = await getFilesFromDir(decodeId);
+          setTitle(decodeId);
         }
         setDocumentList(files);
         setIsLoading(false);
@@ -41,7 +43,7 @@ const ContentBlock: React.FC = () => {
       }
     };
     fetchData();
-  }, [id]);
+  }, [location]);
 
   const handlers = {
     addItem(data: documentData) {
