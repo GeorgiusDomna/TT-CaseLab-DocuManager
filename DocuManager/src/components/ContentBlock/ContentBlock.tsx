@@ -43,7 +43,7 @@ const ContentBlock: React.FC = () => {
           files = await getFilesFromBasket();
           setTitle(t(Localization.BASKET));
         } else {
-          const decodeId = decodeURIComponent(id);
+          const decodeId = decodeURIComponent(id as string);
           files = await getFilesFromDir(decodeId);
           setTitle(decodeId);
         }
