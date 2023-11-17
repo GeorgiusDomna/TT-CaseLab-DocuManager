@@ -25,6 +25,7 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
                                                                onChange
                                                            }) => {
     const [categoryList, setCategoryList] = useState<IResourceMetadata[]>([]);
+    const {t} = useTranslation();
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetchFolderContents();
@@ -38,22 +39,18 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
         MoveFile(currentCategory, selectValue, currentFile)
     };
     // TODO: Сделать нормальный эффект успешности
-    // TODO: Сделать обновление списка
-    // TODO: Привязать перевод
     const MoveFile = async (currentCategory: string, selectValue: string, currentFile: string, overwrite: boolean = false) => {
         const result = await moveDocument(currentCategory, selectValue, currentFile, overwrite)
 
         if (result.status === 201) {
             handlers.deleteItem(currentFile)
-            alert('Файл успешно перемещён.')
+            alert(t(Localization.FILE_MOVED))
         }
         if (result.status == 409) {
-            const overwriteConfirm: boolean = confirm('Файл с таким именем уже существует. Перезаписать?')
+            const overwriteConfirm: boolean = confirm(t(Localization.FILE_EXIST))
             if (overwriteConfirm) await MoveFile(currentCategory, selectValue, currentFile, overwriteConfirm)
         }
     }
-
-    const {t} = useTranslation();
 
     return (
         <form className={styles.document__form} name={name} onSubmit={handleMoveDocument}>

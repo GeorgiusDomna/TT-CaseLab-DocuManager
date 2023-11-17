@@ -16,4 +16,6 @@ export enum Localization {
   MOVE = 'Move',
   CHOOSE_CATEGORY = 'Choose a category',
   BASKET = 'Basket',
+  FILE_EXIST = 'File exist',
+  FILE_MOVED = 'File moved',
 }

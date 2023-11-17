@@ -15,5 +15,7 @@
   "Choose a category": "Choose a category",
   "Main folder": "Main folder",
   "Move": "Move",
-  "Basket": "Basket"
+  "Basket": "Basket",
+  "File exist": "A file with that name already exists. Overwrite it?",
+  "File moved": "The file has been moved successfully."
 }
