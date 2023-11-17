@@ -5,6 +5,7 @@ import Button from '../Button/Button';
 import styles from './formmovedocument.module.css';
 import {IResourceMetadata} from '@/interfaces/IResourceMetadata';
 import {fetchFolderContents} from "@/api/documentService.ts";
+import {moveDocument} from '../../api/documentService';
 
 interface FormMoveDocumentProps {
     selectValue: string;
@@ -36,64 +37,19 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
         event.preventDefault();
         MoveFile(currentCategory, selectValue, currentFile)
     };
-
-    const OAuth_token: string = import.meta.env.VITE_OAUTH_TOKEN;
-    const baseUrl = 'https://cloud-api.yandex.net/v1/disk/resources';
-
-    const headers: Headers = new Headers();
-    headers.set('Accept', 'application/json');
-    headers.set('Content-Type', 'application/json');
-    headers.set('Authorization', OAuth_token);
-
+    // TODO: Сделать нормальный эффект успешности
+    // TODO: Сделать обновление списка
+    // TODO: Привязать перевод
     const MoveFile = async (currentCategory: string, selectValue: string, currentFile: string, overwrite: boolean = false) => {
-        let from = `CaseLabDocuments/${currentCategory}/${currentFile}`
-        let path = `CaseLabDocuments/${selectValue}/${currentFile}`
-        try {
-            const response = await fetch(baseUrl + `/move?from=${from}&path=${path}&overwrite=${overwrite}`, {
-                method: 'POST',
-                headers: headers
-            });
-            // if (!response.ok) {
-            //     throw new Error(`Request failed with status ${response.status}`);
-            // }
-            // TODO: Сделать нормальный эффект успешности
-            // TODO: Сделать обновление списка
-            // TODO: Привязать перевод
-            switch (response.status) {
-                case 201:
-                    handlers.deleteItem(currentFile)
-                    alert('Файл успешно перемещён.')
-                    // const data = await response.json();
-                    break;
-                case 409:
-                    const overwriteConfirm: boolean = confirm('Файл с таким именем уже существует. Перезаписать?')
-                    if (overwriteConfirm) await MoveFile(currentCategory, selectValue, currentFile, overwrite = overwriteConfirm)
-                    break
-                case 413:
-                    console.error('Fetch error:', 'Загрузка файла недоступна. Файл слишком большой.');
-                    alert('Загрузка файла недоступна. Файл слишком большой.');
-                    break;
-                case 423:
-                    console.error('Fetch error:', 'Технические работы. Сейчас можно только просматривать и скачивать файлы.');
-                    alert('Технические работы. Сейчас можно только просматривать и скачивать файлы.');
-                    break;
-                case 429:
-                    console.error('Fetch error:', 'Слишком много запросов.');
-                    alert('Слишком много запросов.');
-                    break;
-                case 503:
-                    console.error('Fetch error:', 'Сервис временно недоступен.');
-                    alert('Сервис временно недоступен.');
-                    break;
-                case 507:
-                    console.error('Fetch error:', 'Недостаточно свободного места.');
-                    alert('Недостаточно свободного места.');
-                    break;
-            }
-            return
-        } catch (error) {
-            console.error('Fetch error:', error); // TODO ERROR
-            throw error;
+        const result = await moveDocument(currentCategory, selectValue, currentFile, overwrite)
+
+        if (result.status === 201) {
+            handlers.deleteItem(currentFile)
+            alert('Файл успешно перемещён.')
+        }
+        if (result.status == 409) {
+            const overwriteConfirm: boolean = confirm('Файл с таким именем уже существует. Перезаписать?')
+            if (overwriteConfirm) await MoveFile(currentCategory, selectValue, currentFile, overwriteConfirm)
         }
     }
 

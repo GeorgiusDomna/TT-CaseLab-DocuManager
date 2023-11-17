@@ -122,3 +122,30 @@ export async function createNewCategory(nameCategory: string): Promise<boolean |
     console.error(error.message); // Здесь будет кастомный алерт
   }
 }
+
+export async function moveDocument(currentCategory: string, selectValue: string, currentFile: string, overwrite: boolean = false): Promise<{ status: number } | undefined> {
+    try {
+        if (!isOnline()) throw new NetworkError();
+
+        const from = `CaseLabDocuments/${currentCategory}/${currentFile}`
+        const path = `CaseLabDocuments/${selectValue}/${currentFile}`
+
+        const URL: string = `${baseUrl}/move?from=${from}&path=${path}&overwrite=${overwrite}`;
+        const response = await fetch(URL, {
+            method: 'POST',
+            headers,
+        });
+        if (response.status === 409) {
+            return {
+                status: response.status
+            }
+        }
+        if (!response.ok) {
+            const error: IFailedServerResponse = await response.json();
+            throw new Error(`Ошибка ${response.status}: ${error.message}`);
+        }
+        return {status: response.status};
+    } catch (error) {
+        console.error(error.message);
+    }
+}
