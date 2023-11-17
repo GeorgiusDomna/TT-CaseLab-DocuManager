@@ -11,6 +11,7 @@ interface FormMoveDocumentProps {
     name: string;
     currentCategory: string;
     currentFile: string;
+    handlers: unknown;
     onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -19,6 +20,7 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
                                                                name,
                                                                currentCategory,
                                                                currentFile,
+                                                               handlers,
                                                                onChange
                                                            }) => {
     const [categoryList, setCategoryList] = useState<IResourceMetadata[]>([]);
@@ -59,6 +61,7 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
             // TODO: Привязать перевод
             switch (response.status) {
                 case 201:
+                    handlers.deleteItem(currentFile)
                     alert('Файл успешно перемещён.')
                     // const data = await response.json();
                     break;
