@@ -13,7 +13,9 @@ function Navigation({ categoryList }: INavigationProps): React.ReactElement {
 
   return (
     <>
-      <h3 className={styles.title}>{t(Localization.CATEGORIES)}</h3>
+      <h3 className={styles.title} data-testid={'Navigation-title'}>
+        {t(Localization.CATEGORIES)}
+      </h3>
       <div className={styles.navigation}>
         <CategoryItem type={'allFiles'} category={t(Localization.ALL_DOCUMENTS)} />
         {categoryList.map((item) => (

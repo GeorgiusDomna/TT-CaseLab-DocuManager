@@ -16,7 +16,7 @@ function SideBar(): React.ReactElement {
     fetchData();
   }, []);
   return (
-    <div className={styles.sideBar}>
+    <div className={styles.sideBar} data-testid={'SideBar'}>
       <Navigation categoryList={categoryList} />
       <NewCategoryCreator categoryList={categoryList} setCategoryList={setCategoryList} />
       <LanguageSwitch />

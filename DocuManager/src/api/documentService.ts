@@ -6,7 +6,7 @@ import { isOnline } from '@/utils/blank';
 const OAuth_token: string = import.meta.env.VITE_OAUTH_TOKEN;
 const baseUrl = 'https://cloud-api.yandex.net/v1/disk/resources';
 
-const headers: Headers = new Headers();
+export const headers: Headers = new Headers();
 headers.set('Accept', 'application/json');
 headers.set('Content-Type', 'application/json');
 headers.set('Authorization', OAuth_token);
@@ -119,6 +119,6 @@ export async function createNewCategory(nameCategory: string): Promise<boolean |
     }
     return true;
   } catch (error) {
-    console.error(error.message); // Здесь будет кастомный алерт
+    console.error(error); // Здесь будет кастомный алерт
   }
 }
