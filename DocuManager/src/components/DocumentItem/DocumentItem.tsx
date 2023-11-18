@@ -122,6 +122,8 @@ const DocumentItem: React.FC<DocumentItemProps> = ({data, path, handlers}) => {
         <FormRenameDocument
           name='form-rename'
           newNameValue={newNameValue}
+          handlers={handlers}
+          path={path}
           onChange={handleChangeNewNameValue}
         />
       )}
