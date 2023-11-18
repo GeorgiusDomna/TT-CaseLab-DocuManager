@@ -36,11 +36,13 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
 
     const handleMoveDocument = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        MoveFile(selectValue, currentFile, path)
+        MoveFile(selectValue, path)
     };
     // TODO: Сделать нормальный эффект успешности
-    const MoveFile = async (selectValue: string, currentFile: string, path: string, overwrite: boolean = false) => {
-        const result = await moveDocument(selectValue, currentFile, path, overwrite)
+    const MoveFile = async (selectValue: string, path: string, overwrite: boolean = false) => {
+        const splitedPath = path.split('/')
+        const newPath = Array.from(splitedPath, (element, index) => index === splitedPath.length - 2 ? selectValue : element).join('/');
+        const result = await moveDocument(newPath, path, overwrite)
 
         if (result.status === 201) {
             handlers.deleteItem(currentFile)
@@ -48,7 +50,7 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
         }
         if (result.status == 409) {
             const overwriteConfirm: boolean = confirm(t(Localization.FILE_EXIST))
-            if (overwriteConfirm) await MoveFile(selectValue, currentFile, path, overwriteConfirm)
+            if (overwriteConfirm) await MoveFile(selectValue, path, overwriteConfirm)
         }
     }
 
