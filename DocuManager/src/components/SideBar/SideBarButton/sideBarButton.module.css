@@ -1,0 +1,36 @@
+.sideBar__button {
+  width: 0px;
+  height: 0px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  display: none;
+
+  position: absolute;
+
+  right: -25px;
+
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.sideBar__button_reverse {
+  transform: rotate(180deg);
+}
+
+.sideBar__button img {
+  width: 30px;
+}
+
+@media (max-width: 768px) {
+  .sideBar__button {
+    display: flex;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+  }
+
+  .sideBar__button img {
+    width: 25px;
+  }
+}
