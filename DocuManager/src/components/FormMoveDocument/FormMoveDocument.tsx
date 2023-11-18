@@ -10,7 +10,7 @@ import {moveDocument} from '../../api/documentService';
 interface FormMoveDocumentProps {
     selectValue: string;
     name: string;
-    currentCategory: string;
+    path: string;
     currentFile: string;
     handlers: unknown;
     onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
@@ -19,7 +19,7 @@ interface FormMoveDocumentProps {
 const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
                                                                selectValue,
                                                                name,
-                                                               currentCategory,
+                                                               path,
                                                                currentFile,
                                                                handlers,
                                                                onChange
@@ -36,11 +36,11 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
 
     const handleMoveDocument = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        MoveFile(currentCategory, selectValue, currentFile)
+        MoveFile(selectValue, currentFile, path)
     };
     // TODO: Сделать нормальный эффект успешности
-    const MoveFile = async (currentCategory: string, selectValue: string, currentFile: string, overwrite: boolean = false) => {
-        const result = await moveDocument(currentCategory, selectValue, currentFile, overwrite)
+    const MoveFile = async (selectValue: string, currentFile: string, path: string, overwrite: boolean = false) => {
+        const result = await moveDocument(selectValue, currentFile, path, overwrite)
 
         if (result.status === 201) {
             handlers.deleteItem(currentFile)
@@ -48,7 +48,7 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
         }
         if (result.status == 409) {
             const overwriteConfirm: boolean = confirm(t(Localization.FILE_EXIST))
-            if (overwriteConfirm) await MoveFile(currentCategory, selectValue, currentFile, overwriteConfirm)
+            if (overwriteConfirm) await MoveFile(selectValue, currentFile, path, overwriteConfirm)
         }
     }
 
@@ -64,7 +64,7 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = ({
                     {t(Localization.CHOOSE_CATEGORY)}
                 </option>
                 {categoryList.map((item) => (
-                    item.name !== currentCategory && <option key={item.name} value={item.name}>{item.name}</option>
+                    item.name !== path.split('/')[2] && <option key={item.name} value={item.name}>{item.name}</option>
                 ))}
             </select>
             <Button text={t(Localization.MOVE)} type='submit' disabled={!selectValue}/>
