@@ -8,11 +8,11 @@ import { Localization } from '@/enums/Localization';
 
 interface DocumentItemProps {
   data: string;
+  path: string;
   handlers: unknown;
-  currentCategory: string;
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = ({data, currentCategory,handlers}) => {
+const DocumentItem: React.FC<DocumentItemProps> = ({data, path, handlers}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRenamePanel, setIsOpenRenamePanel] = useState(false);
   const [isOpenMovePanel, setIsOpenMovePanel] = useState(false);
@@ -116,7 +116,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({data, currentCategory,handle
         </ul>
       </div>
       {isOpenMovePanel && (
-        <FormMoveDocument name='form-move' selectValue={selectValue} currentCategory={currentCategory} currentFile={data} handlers={handlers} onChange={handleSelectValue} />
+        <FormMoveDocument name='form-move' selectValue={selectValue} currentFile={data} path={path} handlers={handlers} onChange={handleSelectValue} />
       )}
       {isOpenRenamePanel && (
         <FormRenameDocument

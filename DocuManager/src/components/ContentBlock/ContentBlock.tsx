@@ -80,7 +80,7 @@ const ContentBlock: React.FC = () => {
       <h2 className={styles.contentBlock__title}>{title}</h2>
       <ul className={styles.contentBlock__documentList}>
         {documentList.map((item) => (
-          <DocumentItem key={item.name} data={item.name} currentCategory={title} handlers={handlers} />
+          <DocumentItem key={item.name} data={item.name} path={item.path} handlers={handlers} />
         ))}
       </ul>
     </div>
