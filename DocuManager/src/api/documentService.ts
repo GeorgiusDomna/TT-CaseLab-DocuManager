@@ -123,11 +123,10 @@ export async function createNewCategory(nameCategory: string): Promise<boolean |
   }
 }
 
-export async function moveDocument(currentCategory: string, selectValue: string, currentFile: string, overwrite: boolean = false): Promise<{ status: number } | undefined> {
+export async function moveDocument(selectValue: string, currentFile: string, from: string, overwrite: boolean = false): Promise<{status: number} | undefined> {
     try {
         if (!isOnline()) throw new NetworkError();
 
-        const from = `CaseLabDocuments/${currentCategory}/${currentFile}`
         const path = `CaseLabDocuments/${selectValue}/${currentFile}`
 
         const URL: string = `${baseUrl}/move?from=${from}&path=${path}&overwrite=${overwrite}`;
