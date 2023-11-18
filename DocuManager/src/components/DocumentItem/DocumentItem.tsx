@@ -98,7 +98,11 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
           <div className={styles.document__iconDocument}></div>
           <p className={styles.document__title}>{data}</p>
         </div>
-        <ul className={styles.document__buttons}>
+        <ul
+          className={[styles.document__buttons, isOpen ? styles.document__buttons_opened : ''].join(
+            ' '
+          )}
+        >
           {isOpen &&
             buttonsIcon.map(({ id, typeStyle, title, onClick }) => (
               <li key={id}>

@@ -16,6 +16,10 @@
   transition: background-color 0.2s ease-in-out;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  position: relative;
+  z-index: 1;
 }
 
 .document__item_opened {
@@ -30,6 +34,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  height: 1.5rem;
 }
 
 .document__iconDocument {
@@ -60,8 +65,47 @@
   gap: 2rem;
 }
 
+@media (max-width: 1000px) {
+  .document__item_opened {
+    margin-bottom: 20px;
+  }
+
+  .document__buttons_opened {
+    position: absolute;
+    bottom: -30px;
+    right: 10px;
+  }
+
+  .document__buttons_opened > li:last-child {
+    transform: translateY(-38px);
+  }
+}
+
+@media (max-width: 768px) {
+  .document__buttons_opened {
+    right: 10px;
+  }
+
+  .document__buttons_opened > li:last-child {
+    transform: translateY(-38px);
+  }
+}
+
 @media (max-width: 650px) {
   .document__buttons {
-    gap: 1rem;
+    gap: 0.6rem;
+  }
+
+  .document__buttons_opened {
+    bottom: -25px;
+    right: 5px;
+  }
+
+  .document__item {
+    padding: 5px;
+  }
+
+  .document__buttons_opened > li:last-child {
+    transform: translateY(-30px);
   }
 }
