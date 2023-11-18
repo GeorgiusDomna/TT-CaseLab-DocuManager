@@ -19,11 +19,11 @@
 }
 
 .document__item_opened {
-  background-color: #ECECEC;
+  background-color: #ececec;
 }
 
 .document__item:hover {
-  background-color: #ECECEC;
+  background-color: #ececec;
 }
 
 .document__titleContainer {
@@ -34,15 +34,18 @@
 
 .document__iconDocument {
   background-image: url('@/assets/document.svg');
-  width: 15px;
-  height: 19px;
+  background-size: 1rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 16px;
+  height: 20px;
 }
 
 .document__title {
   margin: 0;
   color: #181818;
   font-family: Ubuntu, Arial, Helvetica, sans-serif;
-  font-size: 18px;
+  font-size: 1.05rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -54,5 +57,11 @@
   list-style-type: none;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 2rem;
+}
+
+@media (max-width: 650px) {
+  .document__buttons {
+    gap: 1rem;
+  }
 }
