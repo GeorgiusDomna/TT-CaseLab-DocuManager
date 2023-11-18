@@ -1,5 +1,6 @@
 .language {
   width: 80px;
+  margin-top: 50px;
   display: flex;
   align-items: end;
   justify-content: space-around;
@@ -9,6 +10,7 @@
 
 .language button {
   border: none;
+  cursor: pointer;
   background-color: transparent;
 }
 

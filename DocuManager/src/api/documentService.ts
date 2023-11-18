@@ -29,6 +29,24 @@ export async function getFilesFromDir(category: string) {
   }
 }
 
+export async function getFilesFromBasket() {
+  try {
+    if (!isOnline()) throw new NetworkError();
+    const response = await fetch(baseUrl.replace('resources', 'trash') + '/resources?path=%2F', {
+      method: 'GET',
+      headers: headers,
+    });
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+    const data = await response.json();
+    return data._embedded.items;
+  } catch (error) {
+    console.error('Fetch error:', error); // Здесь будет кастомный алерт
+    throw error;
+  }
+}
+
 export async function getAllFiles() {
   try {
     if (!isOnline()) throw new NetworkError();
