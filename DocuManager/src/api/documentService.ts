@@ -157,7 +157,7 @@ export async function createFile(url: string, file: File) {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(file),
+      body: file,
     });
     if (!response.ok) {
       const error: IFailedServerResponse = await response.json();
