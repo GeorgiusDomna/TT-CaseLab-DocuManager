@@ -38,3 +38,8 @@
   background-image: url('@/assets/busket.svg');
   background-size: 1.18rem 1.31rem;
 }
+
+.document__buttonIcon_type_recovery {
+  background-image: url('@/assets/revision.svg');
+  background-size: 1.5rem 1.5rem;
+}

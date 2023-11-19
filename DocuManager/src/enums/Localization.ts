@@ -8,7 +8,7 @@ export enum Localization {
   CREATE_CATEGORY = 'Create category',
   UPLOAD_DOCUMENT = 'Upload document',
   CHOOSE_DOCUMENT = 'Choose document',
-  NEW_NAME_HELP = 'Enter a new document name. Numbers and Latin letters are allowed.',
+  NEW_NAME_HELP = 'Enter a new document name',
   SEE = 'See',
   RENAME_DOC = 'Rename doc',
   MOVE_DOC = 'Move doc',
@@ -20,4 +20,5 @@ export enum Localization {
   MOVE = 'Move',
   CHOOSE_CATEGORY = 'Choose a category',
   BASKET = 'Basket',
+  RECOVERY = 'Recovery',
 }
