@@ -6,6 +6,7 @@ import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
 import ModalWindow from '../ModalWindow/ModalWindow';
+import { useLocation } from 'react-router-dom';
 
 interface DocumentItemProps {
   data: string;
@@ -14,11 +15,12 @@ interface DocumentItemProps {
 }
 
 const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
+  const location = useLocation();
+  const route = location.pathname;
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRenamePanel, setIsOpenRenamePanel] = useState(false);
   const [isOpenMovePanel, setIsOpenMovePanel] = useState(false);
   const [isOpenModalWindow, setIsOpenModalWindow] = useState(false);
-
   const [selectValue, setSelectValue] = useState('');
   const [newNameValue, setNewNameValue] = useState('');
 
@@ -94,6 +96,21 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
     },
   ];
 
+  const buttonsIconTrash = [
+    {
+      id: 1,
+      typeStyle: 'view',
+      title: t(Localization.SEE),
+      onClick: toggleModalWindow,
+    },
+    {
+      id: 2,
+      typeStyle: 'delete',
+      title: t(Localization.RENAME_DOC),
+      onClick: handleDeleteDocument,
+    },
+  ];
+
   return (
     <li className={styles.document}>
       <div className={`${styles.document__item} ${isOpen ? styles.document__item_opened : ''}`}>
@@ -103,7 +120,15 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
         </div>
         <ul className={styles.document__buttons}>
           {isOpen &&
+            route !== '/trash' &&
             buttonsIcon.map(({ id, typeStyle, title, onClick }) => (
+              <li key={id}>
+                <ButtonIcon typeStyle={typeStyle} title={title} onClick={onClick} />
+              </li>
+            ))}
+          {isOpen &&
+            route === '/trash' &&
+            buttonsIconTrash.map(({ id, typeStyle, title, onClick }) => (
               <li key={id}>
                 <ButtonIcon typeStyle={typeStyle} title={title} onClick={onClick} />
               </li>
