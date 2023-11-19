@@ -122,3 +122,20 @@ export async function createNewCategory(nameCategory: string): Promise<boolean |
     console.error(error.message); // Здесь будет кастомный алерт
   }
 }
+export async function deleteDocumentOnServer(path: string ): Promise<boolean | undefined> {
+  try {
+    if (!isOnline()) throw new NetworkError();
+    
+    // Формируем URL для удаления файла
+    const url: string = `${baseUrl}?path=${path}`;
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers,
+    });
+   if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+    return true;
+  } catch (error) {
+    console.error('Ошибка при удалении файла:', error); // Здесь будет кастомный алерт
+  }
+
+}
