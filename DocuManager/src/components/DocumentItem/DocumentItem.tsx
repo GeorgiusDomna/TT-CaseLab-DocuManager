@@ -5,19 +5,21 @@ import FormRenameDocument from '../FormRenameDocument/FormRenameDocument';
 import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
-import ModalWindow from '../ModalWindow/ModalWindow';
+import { deleteDocumentOnServer } from '../../api/documentService'; 
 
 interface DocumentItemProps {
   data: string;
-  handlers: unknown;
-  file: string;
+  path: string;
+  handlers: {
+    deleteItem: (name: string) => void;
+    // ... (другие методы)
+  };
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
+const DocumentItem: React.FC<DocumentItemProps> = ({ data, path, handlers  }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRenamePanel, setIsOpenRenamePanel] = useState(false);
   const [isOpenMovePanel, setIsOpenMovePanel] = useState(false);
-  const [isOpenModalWindow, setIsOpenModalWindow] = useState(false);
 
   const [selectValue, setSelectValue] = useState('');
   const [newNameValue, setNewNameValue] = useState('');
@@ -60,11 +62,21 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
   };
 
   const handleDeleteDocument = () => {
-    resetForms();
+    deleteDocumentOnServer(path)
+    .then(result => {
+      console.log('Успешно удалено:', result);
+      handlers.deleteItem(data);
+    })
+    .catch(error => {
+      console.error('Ошибка при удалении файла:', error);
+    })
+    .finally(() => {
+      resetForms();
+    });
   };
 
-  const toggleModalWindow = () => {
-    setIsOpenModalWindow(!isOpenModalWindow);
+  const handleViewDocument = () => {
+    resetForms();
   };
 
   const buttonsIcon = [
@@ -72,7 +84,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
       id: 1,
       typeStyle: 'view',
       title: t(Localization.SEE),
-      onClick: toggleModalWindow,
+      onClick: handleViewDocument,
     },
     {
       id: 2,
@@ -127,12 +139,6 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
           onChange={handleChangeNewNameValue}
         />
       )}
-      <ModalWindow
-        data={data}
-        isOpenModalWindow={isOpenModalWindow}
-        toggleModalWindow={toggleModalWindow}
-        file={file}
-      />
     </li>
   );
 };
