@@ -106,7 +106,7 @@ function FormUploadDocument({ categoryList }: IFormUploadDocumentProps): React.R
             <img
               className={styles.documentsUpload_inputFilePreview}
               src={previewImage}
-              alt='Загруженный файл'
+              alt={previewText.split('.')[0]}
             />
           )}
           <label className={styles.documentsUpload_labelFile}>
