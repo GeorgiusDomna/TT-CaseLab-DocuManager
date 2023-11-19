@@ -77,7 +77,11 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file, path, handlers 
       })
       .finally(() => {
         resetForms();
-    });
+      });
+  };
+
+  const handleRecoveryDocument = () => {
+    resetForms();
   };
 
   const toggleModalWindow = () => {
@@ -121,8 +125,14 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file, path, handlers 
     {
       id: 2,
       typeStyle: 'delete',
-      title: t(Localization.RENAME_DOC),
+      title: t(Localization.DELETE),
       onClick: handleDeleteDocument,
+    },
+    {
+      id: 3,
+      typeStyle: 'recovery',
+      title: t(Localization.RECOVERY),
+      onClick: handleRecoveryDocument,
     },
   ];
 
