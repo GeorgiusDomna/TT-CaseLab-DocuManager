@@ -1,0 +1,189 @@
+.documentsUpload_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.documentsUpload_form {
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgb(194, 194, 194);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.documentsUpload_inputText {
+  width: 100%;
+  padding: 0.56rem 1rem;
+  font-size: 1rem;
+  font-family: 'Ubuntu', sans-serif;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.documentsUpload_buttonsContainer {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.documentsUpload_button {
+  padding: 0.5rem 0.7rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.5s;
+  box-shadow: 0px 2px 5px rgb(194, 194, 194);
+}
+
+.documentsUpload_button:hover {
+  transform: scale(1.005, 1.005);
+  box-shadow: 0px 8px 10px rgb(194, 194, 194);
+}
+
+.documentsUpload_button:active {
+  transform: scale(0.95,0.95);
+  transition: 0.1s;
+}
+
+.documentsUpload_openButton {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: #ffffff;
+}
+
+.documentsUpload_openButton:hover {
+  background-color: #f2f2f2;
+}
+
+.documentsUpload_openButton_icon {
+  width: 24px;
+  height: 24px;
+  background-image: url('@/assets/upload-file.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+}
+
+.documentsUpload_submitButton {
+  width: 6.9rem;
+  background-color: #f3f3f3;
+}
+
+.documentsUpload_submitButton:hover {
+  background-color: #fafafa;
+}
+
+.documentsUpload_labelText {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  position: relative;
+}
+
+.documentsUpload_inputText {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  font-size: 1rem;
+  font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.documentsUpload_help {
+  width: 24px;
+  height: 24px;
+  background-image: url('@/assets/help.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+}
+
+.documentsUpload_help:hover {
+  cursor: pointer;
+}
+
+.documentsUpload_helpText {
+  width: 100%;
+  display: none;
+  position: absolute;
+  margin: 0;
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+  background-color: #fff;
+  top: 130%;
+  right: 0;
+}
+
+.documentsUpload_help:hover + .documentsUpload_helpText {
+  display: block;
+}
+
+.documentsUpload_select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  font-family: Ubuntu, Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 10px;
+  border: none;
+}
+
+.documentsUpload_labelFile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.documentsUpload_inputFile {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+.documentsUpload_inputFileBtn {
+  border: none;
+  background: url('@/assets/upload.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.documentsUpload_inputFileBtnName {
+  margin: 0;
+  width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.documentsUpload_inputFileBtn:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.documentsUpload_inputFilePreview {
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+  object-position: center;
+  align-self: center;
+  border-radius: 10px;
+}
