@@ -5,13 +5,18 @@ import FormRenameDocument from '../FormRenameDocument/FormRenameDocument';
 import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
-
+import { deleteDocumentOnServer } from '../../api/documentService'; 
+import handlers  from '../ContentBlock/ContentBlock'; 
 interface DocumentItemProps {
   data: string;
-  handlers: unknown;
+  path: string;
+  handlers: {
+    deleteItem: (name: string) => void;
+    // ... (другие методы)
+  };
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
+const DocumentItem: React.FC<DocumentItemProps> = ({ data, path, handlers  }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRenamePanel, setIsOpenRenamePanel] = useState(false);
   const [isOpenMovePanel, setIsOpenMovePanel] = useState(false);
@@ -57,7 +62,17 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
   };
 
   const handleDeleteDocument = () => {
-    resetForms();
+    deleteDocumentOnServer(path)
+    .then(result => {
+      console.log('Успешно удалено:', result);
+      handlers.deleteItem(data);
+    })
+    .catch(error => {
+      console.error('Ошибка при удалении файла:', error);
+    })
+    .finally(() => {
+      resetForms();
+    });
   };
 
   const handleViewDocument = () => {
