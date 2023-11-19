@@ -6,7 +6,6 @@ import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
 import { deleteDocumentOnServer } from '../../api/documentService'; 
-import handlers  from '../ContentBlock/ContentBlock'; 
 interface DocumentItemProps {
   data: string;
   path: string;
