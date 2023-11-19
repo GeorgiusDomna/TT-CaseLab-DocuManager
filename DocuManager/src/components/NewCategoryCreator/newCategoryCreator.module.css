@@ -1,19 +1,21 @@
 .categoryCreator {
+  width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 3rem;
 }
 
 .categoryCreator_form {
-  padding: 20px;
+  width: 100%;
+  padding: 1.25rem;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgb(194, 194, 194);
 }
 .categoryCreator_input {
   width: 100%;
   margin-bottom: 10px;
-  padding: 9px 15px;
-  font-size: 15px;
+  padding: 0.5rem 0.7rem;
+  font-size: 1rem;
   font-family: 'Ubuntu', sans-serif;
   border-radius: 10px;
   border: none;
@@ -25,16 +27,19 @@
 
 .categoryCreator_buttonsContainer {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
 }
 .categoryCreator_button {
-  padding: 9px 15px;
-  font-size: 15px;
+  padding: 0.5rem 0.7rem;
+  font-size: 1rem;
   border-radius: 10px;
   border: none;
   cursor: pointer;
   transition: 0.5s;
-  box-shadow: 0px 2px 5px rgb(194, 194, 194); 
+  box-shadow: 0px 2px 5px rgb(194, 194, 194);
 }
 .categoryCreator_button:hover {
   transform: scale(1.005, 1.005);
@@ -48,7 +53,7 @@
 .categoryCreator_openButton {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.6rem;
   background-color: #ffffff;
 }
 .categoryCreator_openButton:hover {
@@ -63,7 +68,7 @@
 }
 
 .categoryCreator_submitButton {
-  width: 100%;
+  width: 6.9rem;
   background-color: #f3f3f3;
 }
 .categoryCreator_submitButton:hover {
