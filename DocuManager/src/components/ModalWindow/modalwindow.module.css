@@ -1,0 +1,37 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(236, 236, 236, 0.6);
+ }
+ 
+ .modal__header {
+  width: 80%;
+ }
+ 
+ .modal__close {
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+ }
+ 
+ .modal__img {
+  overflow: hidden;
+ }
+ 
+ .modal__img img {
+  overflow: hidden;
+  max-height: 80vh;
+  max-width: 100vw;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+ }

@@ -5,16 +5,19 @@ import FormRenameDocument from '../FormRenameDocument/FormRenameDocument';
 import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
+import ModalWindow from '../ModalWindow/ModalWindow';
 
 interface DocumentItemProps {
   data: string;
   handlers: unknown;
+  file: string;
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
+const DocumentItem: React.FC<DocumentItemProps> = ({ data, file }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRenamePanel, setIsOpenRenamePanel] = useState(false);
   const [isOpenMovePanel, setIsOpenMovePanel] = useState(false);
+  const [isOpenModalWindow, setIsOpenModalWindow] = useState(false);
 
   const [selectValue, setSelectValue] = useState('');
   const [newNameValue, setNewNameValue] = useState('');
@@ -60,8 +63,8 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
     resetForms();
   };
 
-  const handleViewDocument = () => {
-    resetForms();
+  const toggleModalWindow = () => {
+    setIsOpenModalWindow(!isOpenModalWindow);
   };
 
   const buttonsIcon = [
@@ -69,7 +72,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
       id: 1,
       typeStyle: 'view',
       title: t(Localization.SEE),
-      onClick: handleViewDocument,
+      onClick: toggleModalWindow,
     },
     {
       id: 2,
@@ -124,6 +127,12 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data }) => {
           onChange={handleChangeNewNameValue}
         />
       )}
+      <ModalWindow
+        data={data}
+        isOpenModalWindow={isOpenModalWindow}
+        toggleModalWindow={toggleModalWindow}
+        file={file}
+      />
     </li>
   );
 };
