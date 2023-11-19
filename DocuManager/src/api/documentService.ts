@@ -143,8 +143,6 @@ export async function createURLFile(path: string) {
   } catch (error) {
     console.error(error);
   }
-
-  // &overwrite=true - заменит старый файл новым
 }
 
 export async function createFile(url: string, file: File) {
