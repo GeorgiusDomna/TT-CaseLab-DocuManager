@@ -143,8 +143,6 @@ export async function createURLFile(path: string) {
   } catch (error) {
     console.error(error);
   }
-
-  // &overwrite=true - заменит старый файл новым
 }
 
 export async function createFile(url: string, file: File) {
@@ -157,7 +155,7 @@ export async function createFile(url: string, file: File) {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(file),
+      body: file,
     });
     if (!response.ok) {
       const error: IFailedServerResponse = await response.json();
