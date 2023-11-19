@@ -122,3 +122,49 @@ export async function createNewCategory(nameCategory: string): Promise<boolean |
     console.error(error.message); // Здесь будет кастомный алерт
   }
 }
+
+export async function createURLFile(path: string) {
+  try {
+    if (!isOnline()) throw new NetworkError();
+    const URL: string = `${baseUrl}/upload/?path=${path}`;
+    const response = await fetch(URL, {
+      method: 'GET',
+      headers,
+    });
+    if (!response.ok) {
+      const error: IFailedServerResponse = await response.json();
+      if (response.status === 409) {
+        return Promise.reject(
+          `${error.message} Проверьте выбранную категорию. Переименуйте документ или загрузите другой.`
+        );
+      }
+    }
+    return response.json();
+  } catch (error) {
+    console.error(error);
+  }
+
+  // &overwrite=true - заменит старый файл новым
+}
+
+export async function createFile(url: string, file: File) {
+  try {
+    if (!isOnline()) throw new NetworkError();
+    const URL: string = url;
+    const response = await fetch(URL, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(file),
+    });
+    if (!response.ok) {
+      const error: IFailedServerResponse = await response.json();
+      throw new Error(`Ошибка ${response.status}: ${error.message}`);
+    }
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}

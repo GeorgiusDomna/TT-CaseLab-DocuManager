@@ -6,6 +6,7 @@ import Navigation from '../Navigation/Navigation';
 import LanguageSwitch from '../LanguageSwitch/LanguageSwitch';
 import SideBarButton from './SideBarButton/SideBarButton';
 import styles from './sideBar.module.css';
+import FormUploadDocument from '../FormUploadDocument/FormUploadDocument';
 
 function SideBar(): React.ReactElement {
   const [categoryList, setCategoryList] = useState<IResourceMetadata[]>([]);
@@ -27,6 +28,7 @@ function SideBar(): React.ReactElement {
     <div className={[styles.sideBar, isShown ? styles.sideBar_shown : ''].join(' ')}>
       <Navigation categoryList={categoryList} />
       <NewCategoryCreator categoryList={categoryList} setCategoryList={setCategoryList} />
+      <FormUploadDocument categoryList={categoryList} />
       <SideBarButton clickHandler={clickHandler} />
       <LanguageSwitch />
     </div>
