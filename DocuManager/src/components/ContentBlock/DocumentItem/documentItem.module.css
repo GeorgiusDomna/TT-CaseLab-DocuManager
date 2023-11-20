@@ -34,7 +34,7 @@
   height: 1.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 50%;
+  max-width: 85%;
 }
 
 .document__iconDocument {
@@ -84,6 +84,10 @@
 
   .document__buttons_opened > li:last-child {
     transform: translateY(-39px);
+  }
+
+  .document__titleContainer {
+    max-width: 95%;
   }
 }
 

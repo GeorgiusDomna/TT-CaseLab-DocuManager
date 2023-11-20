@@ -141,7 +141,9 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
       <div className={`${styles.document__item} ${isOpen ? styles.document__item_opened : ''}`}>
         <div className={styles.document__titleContainer}>
           <div className={styles.document__iconDocument}></div>
-          <p className={styles.document__title}>{data}</p>
+          <p className={styles.document__title} title={data}>
+            {data}
+          </p>
         </div>
         <ul
           className={[styles.document__buttons, isOpen ? styles.document__buttons_opened : ''].join(
