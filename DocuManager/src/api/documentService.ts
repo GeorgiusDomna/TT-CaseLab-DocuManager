@@ -139,6 +139,7 @@ export async function createURLFile(path: string) {
           `${error.message} Проверьте выбранную категорию. Переименуйте документ или загрузите другой.`
         );
       }
+      return Promise.reject(error.message);
     }
     return response.json();
   } catch (error) {
@@ -160,13 +161,32 @@ export async function createFile(url: string, file: File) {
     });
     if (!response.ok) {
       const error: IFailedServerResponse = await response.json();
-      throw new Error(`Ошибка ${response.status}: ${error.message}`);
+      return Promise.reject(error.message);
     }
     return response;
   } catch (error) {
     console.error(error);
   }
 }
+
+export async function getFileInfo(path: string) {
+  try {
+    if (!isOnline()) throw new NetworkError();
+    const URL: string = `${baseUrl}?path=${path}`;
+    const response = await fetch(URL, {
+      method: 'GET',
+      headers,
+    });
+    if (!response.ok) {
+      const error: IFailedServerResponse = await response.json();
+      return Promise.reject(error.message);
+    }
+    return response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function deleteDocumentOnServer(path: string): Promise<boolean | undefined> {
   let url: string;
   try {
