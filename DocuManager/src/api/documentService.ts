@@ -25,8 +25,7 @@ export async function getFilesFromDir(category: string) {
     const data = await response.json();
     return data._embedded.items;
   } catch (error) {
-    console.error('Fetch error:', error); // Здесь будет кастомный алерт
-    throw error;
+    alertStore.toggleAlert((error as Error).message);
   }
 }
 
@@ -43,8 +42,7 @@ export async function getFilesFromBasket() {
     const data = await response.json();
     return data._embedded.items;
   } catch (error) {
-    console.error('Fetch error:', error); // Здесь будет кастомный алерт
-    throw error;
+    alertStore.toggleAlert((error as Error).message);
   }
 }
 
@@ -61,8 +59,7 @@ export async function getAllFiles() {
     const data = await response.json();
     return data.items;
   } catch (error) {
-    console.error('Fetch error:', error); // Здесь будет кастомный алерт
-    throw error;
+    alertStore.toggleAlert((error as Error).message);
   }
 }
 
