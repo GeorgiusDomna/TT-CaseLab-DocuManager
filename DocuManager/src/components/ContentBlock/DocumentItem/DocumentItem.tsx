@@ -10,6 +10,7 @@ import { deleteDocumentOnServer, RecoveryDocumentOnServer } from '../../../api/d
 import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import documentStore from '@/stores/DocumentStore';
+import alertStore from '@/stores/AlertStore';
 
 interface DocumentItemProps {
   data: string;
@@ -73,7 +74,7 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
          deleteDocument(id);
       })
       .catch((error) => {
-        console.error('Ошибка при удалении файла:', error);
+        alertStore.toggleAlert(error.message);
       })
       .finally(() => {
         resetForms();
@@ -87,7 +88,7 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
          deleteDocument(id);
       })
       .catch((error) => {
-        console.error('Ошибка при востановлении файла:', error);
+        alertStore.toggleAlert(error.message);
       })
       .finally(() => {
         resetForms();
