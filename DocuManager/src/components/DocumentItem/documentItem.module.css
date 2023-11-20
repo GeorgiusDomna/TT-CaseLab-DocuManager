@@ -17,7 +17,6 @@
   align-items: center;
 
   position: relative;
-  z-index: 1;
 }
 
 .document__item_opened {
