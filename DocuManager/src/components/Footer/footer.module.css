@@ -1,0 +1,20 @@
+.footer {
+  max-width: 1440px;
+  margin: 30px auto 0 auto;
+  padding-right: 30px;
+
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 40px;
+
+  font-weight: bold;
+}
+
+.footer img {
+  width: 45px;
+}
+
+.footer span {
+  font-size: 1.3rem;
+}
