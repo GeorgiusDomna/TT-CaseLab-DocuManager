@@ -32,6 +32,9 @@
   align-items: center;
   gap: 10px;
   height: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
 }
 
 .document__iconDocument {
@@ -39,7 +42,7 @@
   background-size: 1rem;
   background-repeat: no-repeat;
   background-position: center;
-  width: 16px;
+  min-width: 16px;
   height: 20px;
 }
 
@@ -51,6 +54,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .document__buttons {
