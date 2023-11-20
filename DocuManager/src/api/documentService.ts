@@ -183,7 +183,7 @@ export async function deleteDocumentOnServer(path: string): Promise<boolean | un
     if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
     return true;
   } catch (error) {
-    console.error('Ошибка при удалении файла:', error); // Здесь будет кастомный алерт
+    alertStore.toggleAlert(error.message);
   }
 }
 export async function moveDocument(
@@ -226,6 +226,6 @@ export async function RecoveryDocumentOnServer(path: string): Promise<boolean | 
     if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
     return true;
   } catch (error) {
-    console.error('Ошибка при востановлении файла:', error); // Здесь будет кастомный алерт
+    alertStore.toggleAlert(error.message);
   }
 }
