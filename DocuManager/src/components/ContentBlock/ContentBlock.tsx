@@ -51,7 +51,6 @@ const ContentBlock: React.FC = observer(() => {
         }
         setDocumentList(files);
         setIsLoading(false);
-        console.log(files);
       } catch (error) {
         console.error('Error fetching data:', error); // TODO ERROR
       }
