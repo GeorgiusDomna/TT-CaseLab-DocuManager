@@ -15,9 +15,10 @@ interface DocumentItemProps {
   data: string;
   path: string;
   file: string;
+  id: string;
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path }) => {
+const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, id }) => {
   const location = useLocation();
   const route = location.pathname;
   const { deleteDocument, renameDocument } = documentStore;
@@ -69,7 +70,7 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path }
     deleteDocumentOnServer(path)
       .then((result) => {
         console.log('Успешно удалено:', result);
-        deleteDocument(data);
+        deleteDocument(id);
       })
       .catch((error) => {
         console.error('Ошибка при удалении файла:', error);
@@ -142,7 +143,11 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path }
           <div className={styles.document__iconDocument}></div>
           <p className={styles.document__title}>{data}</p>
         </div>
-        <ul className={styles.document__buttons}>
+        <ul
+          className={[styles.document__buttons, isOpen ? styles.document__buttons_opened : ''].join(
+            ' '
+          )}
+        >
           {isOpen &&
             route !== '/trash' &&
             buttonsIcon.map(({ id, typeStyle, title, onClick }) => (

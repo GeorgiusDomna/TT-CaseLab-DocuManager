@@ -1,5 +1,5 @@
 .sideBar {
-  max-width: 27%;
+  width: 27%;
   padding: 50px 30px 50px 30px;
   background-color: #ececec;
   display: flex;
@@ -10,14 +10,16 @@
 
 @media (max-width: 1000px) {
   .sideBar {
+    width: 35%;
     padding: 50px 2% 30px 2%;
   }
 }
 
 @media (max-width: 768px) {
   .sideBar {
-    max-width: 50%;
-    padding: 50px 20px 30px 5px;
+    min-width: 50%;
+    padding: 50px 10px 30px 10px;
+    height: 100%;
 
     position: absolute;
     z-index: 1000;
@@ -28,5 +30,11 @@
 
   .sideBar_shown {
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 500px) {
+  .sideBar {
+    min-width: 80%;
   }
 }

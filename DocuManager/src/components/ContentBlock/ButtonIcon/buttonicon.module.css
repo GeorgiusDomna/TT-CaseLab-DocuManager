@@ -4,8 +4,8 @@
   border: none;
   background-position: center;
   background-repeat: no-repeat;
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   transition: opacity 0.2s ease-in-out;
 }
 

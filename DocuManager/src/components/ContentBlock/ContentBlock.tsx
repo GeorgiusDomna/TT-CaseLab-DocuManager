@@ -19,7 +19,7 @@ const ContentBlock: React.FC = observer(() => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { id } = useParams();
+  const { categoryName } = useParams();
 
   const location = useLocation();
 
@@ -45,12 +45,13 @@ const ContentBlock: React.FC = observer(() => {
           files = await getFilesFromBasket();
           setTitle(t(Localization.BASKET));
         } else {
-          const decodeId = decodeURIComponent(id);
+          const decodeId = decodeURIComponent(categoryName as string);
           files = await getFilesFromDir(decodeId);
           setTitle(decodeId);
         }
         setDocumentList(files);
         setIsLoading(false);
+        console.log(files);
       } catch (error) {
         console.error('Error fetching data:', error); // TODO ERROR
       }
@@ -65,7 +66,13 @@ const ContentBlock: React.FC = observer(() => {
       <h2 className={styles.contentBlock__title}>{title}</h2>
       <ul className={styles.contentBlock__documentList}>
         {documentList.map((item) => (
-          <DocumentItem key={item.resource_id} data={item.name} path={item.path} file={item.file} />
+          <DocumentItem
+            key={item.resource_id}
+            data={item.name}
+            path={item.path}
+            file={item.file}
+            id={item.resource_id}
+          />
         ))}
       </ul>
     </div>
