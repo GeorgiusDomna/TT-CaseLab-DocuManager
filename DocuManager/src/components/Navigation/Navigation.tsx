@@ -3,12 +3,13 @@ import CategoryItem from '../CategoryItem/CategoryItem';
 import styles from './navigation.module.css';
 import { IResourceMetadata } from '@/interfaces/IResourceMetadata';
 import { Localization } from '@/enums/Localization';
+import { observer } from 'mobx-react-lite';
 
 interface INavigationProps {
   categoryList: IResourceMetadata[];
 }
 
-function Navigation({ categoryList }: INavigationProps): React.ReactElement {
+const Navigation: React.FC<INavigationProps> = observer(({ categoryList }) => {
   const { t } = useTranslation();
 
   return (
@@ -23,6 +24,6 @@ function Navigation({ categoryList }: INavigationProps): React.ReactElement {
       </div>
     </>
   );
-}
+});
 
 export default Navigation;
