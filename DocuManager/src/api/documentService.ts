@@ -25,8 +25,7 @@ export async function getFilesFromDir(category: string) {
     const data = await response.json();
     return data._embedded.items;
   } catch (error) {
-    console.error('Fetch error:', error); // Здесь будет кастомный алерт
-    throw error;
+    alertStore.toggleAlert((error as Error).message);
   }
 }
 
@@ -43,8 +42,7 @@ export async function getFilesFromBasket() {
     const data = await response.json();
     return data._embedded.items;
   } catch (error) {
-    console.error('Fetch error:', error); // Здесь будет кастомный алерт
-    throw error;
+    alertStore.toggleAlert((error as Error).message);
   }
 }
 
@@ -61,8 +59,7 @@ export async function getAllFiles() {
     const data = await response.json();
     return data.items;
   } catch (error) {
-    console.error('Fetch error:', error); // Здесь будет кастомный алерт
-    throw error;
+    alertStore.toggleAlert((error as Error).message);
   }
 }
 
@@ -139,6 +136,7 @@ export async function createURLFile(path: string) {
           `${error.message} Проверьте выбранную категорию. Переименуйте документ или загрузите другой.`
         );
       }
+      return Promise.reject(error.message);
     }
     return response.json();
   } catch (error) {
@@ -160,19 +158,41 @@ export async function createFile(url: string, file: File) {
     });
     if (!response.ok) {
       const error: IFailedServerResponse = await response.json();
-      throw new Error(`Ошибка ${response.status}: ${error.message}`);
+      return Promise.reject(error.message);
     }
     return response;
   } catch (error) {
     console.error(error);
   }
 }
-export async function deleteDocumentOnServer(path: string): Promise<boolean | undefined> {
+
+export async function getFileInfo(path: string) {
   try {
     if (!isOnline()) throw new NetworkError();
+    const URL: string = `${baseUrl}?path=${path}`;
+    const response = await fetch(URL, {
+      method: 'GET',
+      headers,
+    });
+    if (!response.ok) {
+      const error: IFailedServerResponse = await response.json();
+      return Promise.reject(error.message);
+    }
+    return response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
+export async function deleteDocumentOnServer(path: string): Promise<boolean | undefined> {
+  let url: string;
+  try {
+    if (!isOnline()) throw new NetworkError();
     // Формируем URL для удаления файла
-    const url: string = `${baseUrl}?path=${path}`;
+    if (path.includes('trash:/')) 
+        url = baseUrl.replace('resources', 'trash') + '/resources?path=' + path;
+    else
+      url = `${baseUrl}?path=${path}`;
     const response = await fetch(url, {
       method: 'DELETE',
       headers,
@@ -180,7 +200,7 @@ export async function deleteDocumentOnServer(path: string): Promise<boolean | un
     if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
     return true;
   } catch (error) {
-    console.error('Ошибка при удалении файла:', error); // Здесь будет кастомный алерт
+    alertStore.toggleAlert(error.message);
   }
 }
 export async function moveDocument(
@@ -206,6 +226,22 @@ export async function moveDocument(
       throw new Error(`Ошибка ${response.status}: ${error.message}`);
     }
     return { status: response.status };
+  } catch (error) {
+    alertStore.toggleAlert(error.message);
+  }
+}
+
+export async function RecoveryDocumentOnServer(path: string): Promise<boolean | undefined> {
+  try {
+    if (!isOnline()) throw new NetworkError();
+    // Формируем URL для востановления файла 
+    const url: string = baseUrl.replace('resources', 'trash') + '/resources/restore?path=' + path;
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers,
+    });
+    if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+    return true;
   } catch (error) {
     alertStore.toggleAlert(error.message);
   }
