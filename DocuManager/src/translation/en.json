@@ -17,5 +17,7 @@
   "Main folder": "Main folder",
   "Move": "Move",
   "Basket": "Basket",
-  "Enter a new document name": "Enter a new document name. Numbers and Latin letters are allowed."
+  "Enter a new document name": "Enter a new document name. Numbers and Latin letters are allowed.",
+  "File exist": "A file with that name already exists. Overwrite it?",
+  "File moved": "The file has been moved successfully."
 }
