@@ -14,8 +14,8 @@ function App() {
           <Route path='/categories/:categoryName' element={<ContentBlock />} />
           <Route path='/trash' element={<ContentBlock />} />
         </Routes>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }
