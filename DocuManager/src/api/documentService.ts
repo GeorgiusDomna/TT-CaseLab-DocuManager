@@ -168,11 +168,14 @@ export async function createFile(url: string, file: File) {
   }
 }
 export async function deleteDocumentOnServer(path: string): Promise<boolean | undefined> {
+  let url: string;
   try {
     if (!isOnline()) throw new NetworkError();
-
     // Формируем URL для удаления файла
-    const url: string = `${baseUrl}?path=${path}`;
+    if (path.includes('trash:/')) 
+        url = baseUrl.replace('resources', 'trash') + '/resources?path=' + path;
+    else
+      url = `${baseUrl}?path=${path}`;
     const response = await fetch(url, {
       method: 'DELETE',
       headers,
@@ -180,7 +183,7 @@ export async function deleteDocumentOnServer(path: string): Promise<boolean | un
     if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
     return true;
   } catch (error) {
-    console.error('Ошибка при удалении файла:', error); // Здесь будет кастомный алерт
+    alertStore.toggleAlert(error.message);
   }
 }
 export async function moveDocument(
@@ -206,6 +209,22 @@ export async function moveDocument(
       throw new Error(`Ошибка ${response.status}: ${error.message}`);
     }
     return { status: response.status };
+  } catch (error) {
+    alertStore.toggleAlert(error.message);
+  }
+}
+
+export async function RecoveryDocumentOnServer(path: string): Promise<boolean | undefined> {
+  try {
+    if (!isOnline()) throw new NetworkError();
+    // Формируем URL для востановления файла 
+    const url: string = baseUrl.replace('resources', 'trash') + '/resources/restore?path=' + path;
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers,
+    });
+    if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+    return true;
   } catch (error) {
     alertStore.toggleAlert(error.message);
   }
