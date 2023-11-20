@@ -6,3 +6,7 @@
 
   position: relative;
 }
+.openAlert {
+  filter: blur(2px);
+  pointer-events: none;
+}

@@ -3,39 +3,44 @@ import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
 import Button from '../Button/Button';
 import styles from './formrenamedocument.module.css';
-import {moveDocument} from "@/api/documentService.ts";
-import documentStore from '@/stores/DocumentStore';
+import { moveDocument } from '@/api/documentService.ts';
 
 interface FormRenameDocumentProps {
   newNameValue: string;
   name: string;
-  path:string;
-  fileName:string;
+  path: string;
+  id: string;
+  renameDocument: (resource_id: string, newName: string) => void;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  resetForms: () => void;
 }
 
 const FormRenameDocument: React.FC<FormRenameDocumentProps> = ({
   newNameValue,
   name,
   path,
-  fileName,
+  id,
   onChange,
+  renameDocument,
+  resetForms,
 }) => {
   const handleRenameDocument = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     renameFile(path);
   };
-  const {renameDocument} = documentStore;
 
   const renameFile = async (path: string) => {
-    const splitedPath = path.split('/')
-    const newPath = Array.from(splitedPath, (element, index) => index === splitedPath.length - 1 ? newNameValue : element).join('/');
-    const result = await moveDocument(newPath, path, true)
+    const splitedPath = path.split('/');
+    const newPath = Array.from(splitedPath, (element, index) =>
+      index === splitedPath.length - 1 ? newNameValue : element
+    ).join('/');
+    const result = await moveDocument(newPath, path, true);
 
     if (typeof result !== 'boolean' && result?.status === 201) {
-      renameDocument(fileName,newNameValue);
+      renameDocument(id, newNameValue);
+      resetForms();
     }
-  }
+  };
 
   const { t } = useTranslation();
 

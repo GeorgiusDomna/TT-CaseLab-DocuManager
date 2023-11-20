@@ -2,6 +2,7 @@ import { IFailedServerResponse } from '@/interfaces/IFailedServerResponse';
 import { NetworkError } from '@/errors/NetworkError';
 import { IResourceMetadata } from '@/interfaces/IResourceMetadata';
 import { isOnline } from '@/utils/blank';
+import alertStore from '@/stores/AlertStore';
 
 const OAuth_token: string = import.meta.env.VITE_OAUTH_TOKEN;
 const baseUrl = 'https://cloud-api.yandex.net/v1/disk/resources';
@@ -182,7 +183,11 @@ export async function deleteDocumentOnServer(path: string): Promise<boolean | un
     console.error('Ошибка при удалении файла:', error); // Здесь будет кастомный алерт
   }
 }
-export async function moveDocument(path: string, from: string, overwrite: boolean = false): Promise<{status:number} | boolean | undefined> {
+export async function moveDocument(
+  path: string,
+  from: string,
+  overwrite: boolean = false
+): Promise<{ status: number } | boolean | undefined> {
   try {
     if (!isOnline()) throw new NetworkError();
 
@@ -193,15 +198,15 @@ export async function moveDocument(path: string, from: string, overwrite: boolea
     });
     if (response.status === 409) {
       return {
-        status: response.status
-      }
+        status: response.status,
+      };
     }
     if (!response.ok) {
       const error: IFailedServerResponse = await response.json();
       throw new Error(`Ошибка ${response.status}: ${error.message}`);
     }
-    return {status: response.status};
+    return { status: response.status };
   } catch (error) {
-    console.error(error.message);
+    alertStore.toggleAlert(error.message);
   }
 }
