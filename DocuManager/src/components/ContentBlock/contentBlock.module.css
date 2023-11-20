@@ -17,6 +17,12 @@
   gap: 20px;
 }
 
+@media (max-width: 1000px) {
+  .contentBlock {
+    width: 65%;
+  }
+}
+
 @media (max-width: 768px) {
   .contentBlock {
     width: 100%;
