@@ -167,12 +167,14 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path }
         </ul>
       </div>
       {isOpenMovePanel && (
-        <FormMoveDocument name='form-move' selectValue={selectValue} onChange={handleSelectValue} />
+        <FormMoveDocument name='form-move' path={path} fileName={data} selectValue={selectValue} onChange={handleSelectValue} />
       )}
       {isOpenRenamePanel && (
         <FormRenameDocument
           name='form-rename'
           newNameValue={newNameValue}
+          fileName={data}
+          path={path}
           onChange={handleChangeNewNameValue}
         />
       )}
