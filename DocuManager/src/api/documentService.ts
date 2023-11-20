@@ -168,11 +168,14 @@ export async function createFile(url: string, file: File) {
   }
 }
 export async function deleteDocumentOnServer(path: string): Promise<boolean | undefined> {
+  let url: string;
   try {
     if (!isOnline()) throw new NetworkError();
-
     // Формируем URL для удаления файла
-    const url: string = `${baseUrl}?path=${path}`;
+    if (path.includes('trash:/')) 
+        url = baseUrl.replace('resources', 'trash') + '/resources?path=' + path;
+    else
+      url = `${baseUrl}?path=${path}`;
     const response = await fetch(url, {
       method: 'DELETE',
       headers,
