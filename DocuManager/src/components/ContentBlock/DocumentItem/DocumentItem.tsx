@@ -6,7 +6,7 @@ import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
 import ModalWindow from '../ModalWindow/ModalWindow';
-import { deleteDocumentOnServer } from '../../../api/documentService';
+import { deleteDocumentOnServer, RecoveryDocumentOnServer } from '../../../api/documentService';
 import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import documentStore from '@/stores/DocumentStore';
@@ -69,8 +69,8 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
   const handleDeleteDocument = () => {
     deleteDocumentOnServer(path)
       .then((result) => {
-        console.log('Успешно удалено:', result);
-        deleteDocument(id);
+         console.log('Успешно удалено:', result);
+         deleteDocument(id);
       })
       .catch((error) => {
         console.error('Ошибка при удалении файла:', error);
@@ -81,7 +81,17 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
   };
 
   const handleRecoveryDocument = () => {
-    resetForms();
+    RecoveryDocumentOnServer(path)
+      .then((result) => {
+         console.log('Успешно востановлен:', result);
+         deleteDocument(id);
+      })
+      .catch((error) => {
+        console.error('Ошибка при востановлении файла:', error);
+      })
+      .finally(() => {
+        resetForms();
+      });
   };
 
   const toggleModalWindow = () => {
