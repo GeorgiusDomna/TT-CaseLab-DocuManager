@@ -9,11 +9,15 @@
   "Rename doc": "Rename the document",
   "Move doc": "Move the document",
   "Delete": "Delete the document",
+  "Recovery": "Recovery the document",
   "Settings": "The Document Interaction panel",
   "New name": "New title",
   "Rename": "Rename",
   "Choose a category": "Choose a category",
   "Main folder": "Main folder",
   "Move": "Move",
-  "Basket": "Basket"
+  "Basket": "Basket",
+  "Enter a new document name": "Enter a new document name. Numbers and Latin letters are allowed.",
+  "File exist": "A file with that name already exists. Overwrite it?",
+  "File moved": "The file has been moved successfully."
 }

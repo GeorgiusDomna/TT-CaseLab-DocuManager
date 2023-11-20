@@ -1,10 +1,8 @@
 .document__button {
-  box-sizing: border-box;
   background-color: black;
   border: none;
-  color: #FFF;
+  color: #fff;
   font-family: Ubuntu, Arial, Helvetica, sans-serif;
-  font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -18,10 +16,22 @@
 }
 
 .document__button:disabled {
-  background-color: #0000004D;
+  background-color: #0000004d;
 }
 
 .document__button:disabled:hover {
   cursor: default;
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .document__button {
+    padding: 10px 25px;
+  }
+}
+
+@media (max-width: 650px) {
+  .document__button {
+    padding: 5px 7px;
+  }
 }

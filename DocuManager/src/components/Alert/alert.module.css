@@ -1,0 +1,31 @@
+.alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 30rem;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  border-radius: 20px;
+  background-color: #e1e1e1ce;
+}
+.message {
+  font-size: 1.05rem;
+  word-wrap: break-word;
+}
+.alert button {
+  margin-top: 1rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  background: rgba(211, 211, 211, 0.757);
+}
+.alert button:hover {
+  opacity: 0.9;
+  transition: 0.1s ease-in;
+}
+.alert button:active {
+  opacity: 0.7;
+}

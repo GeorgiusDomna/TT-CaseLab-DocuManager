@@ -1,0 +1,21 @@
+.footer {
+  position: absolute;
+  bottom: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 40px;
+
+  font-weight: bold;
+}
+
+.footer img {
+  width: 45px;
+}
+
+.footer span {
+  font-size: 1.3rem;
+}

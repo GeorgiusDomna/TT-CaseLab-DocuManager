@@ -4,12 +4,13 @@ import { IResourceMetadata } from '@/interfaces/IResourceMetadata';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
 import { createFile, createURLFile } from '@/api/documentService';
+import { observer } from 'mobx-react-lite';
 
 interface IFormUploadDocumentProps {
   categoryList: IResourceMetadata[];
 }
 
-function FormUploadDocument({ categoryList }: IFormUploadDocumentProps): React.ReactElement {
+const FormUploadDocument: React.FC<IFormUploadDocumentProps> = observer(({ categoryList }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectValue, setSelectValue] = useState<string>('');
@@ -106,7 +107,7 @@ function FormUploadDocument({ categoryList }: IFormUploadDocumentProps): React.R
             <img
               className={styles.documentsUpload_inputFilePreview}
               src={previewImage}
-              alt='Загруженный файл'
+              alt={previewText.split('.')[0]}
             />
           )}
           <label className={styles.documentsUpload_labelFile}>
@@ -176,6 +177,6 @@ function FormUploadDocument({ categoryList }: IFormUploadDocumentProps): React.R
       )}
     </div>
   );
-}
+});
 
 export default FormUploadDocument;

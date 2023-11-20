@@ -4,16 +4,13 @@ import { createNewCategory } from '@/api/documentService';
 import { IResourceMetadata } from '@/interfaces/IResourceMetadata';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
+import { observer } from 'mobx-react-lite';
 
 interface INewCategoryCreatorProps {
-  categoryList: IResourceMetadata[];
-  setCategoryList: React.Dispatch<React.SetStateAction<IResourceMetadata[]>>;
+  addNewCategory: (newCategory: IResourceMetadata) => void;
 }
 
-function NewCategoryCreator({
-  categoryList,
-  setCategoryList,
-}: INewCategoryCreatorProps): React.ReactElement {
+const NewCategoryCreator: React.FC<INewCategoryCreatorProps> = observer(({ addNewCategory }) => {
   const [isCategoryCreatorOpen, setCategoryCreatorOpen] = useState<boolean>(false);
   const [newNameCategory, setNewNameCategory] = useState<string>('');
   const { t } = useTranslation();
@@ -35,7 +32,7 @@ function NewCategoryCreator({
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (await createNewCategory(newNameCategory)) {
-      setCategoryList([...categoryList, { name: newNameCategory }]); /// Здесь должен быть запрос на сервер за данными новой категории и пуш их в стейт categoryList
+      addNewCategory({ name: newNameCategory, path: `disk:/CaseLabDocuments/${newNameCategory}` }); /// Здесь должен быть запрос на сервер за данными новой категории и пуш их в стейт categoryList
       toggleCategoryCreator();
     }
   };
@@ -88,6 +85,6 @@ function NewCategoryCreator({
       )}
     </div>
   );
-}
+});
 
 export default NewCategoryCreator;

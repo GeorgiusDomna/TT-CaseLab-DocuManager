@@ -4,8 +4,8 @@
   border: none;
   background-position: center;
   background-repeat: no-repeat;
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   transition: opacity 0.2s ease-in-out;
 }
 
@@ -37,4 +37,9 @@
 .document__buttonIcon_type_delete {
   background-image: url('@/assets/busket.svg');
   background-size: 1.18rem 1.31rem;
+}
+
+.document__buttonIcon_type_recovery {
+  background-image: url('@/assets/revision.svg');
+  background-size: 1.5rem 1.5rem;
 }

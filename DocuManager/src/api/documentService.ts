@@ -2,6 +2,7 @@ import { IFailedServerResponse } from '@/interfaces/IFailedServerResponse';
 import { NetworkError } from '@/errors/NetworkError';
 import { IResourceMetadata } from '@/interfaces/IResourceMetadata';
 import { isOnline } from '@/utils/blank';
+import alertStore from '@/stores/AlertStore';
 
 const OAuth_token: string = import.meta.env.VITE_OAUTH_TOKEN;
 const baseUrl = 'https://cloud-api.yandex.net/v1/disk/resources';
@@ -143,8 +144,6 @@ export async function createURLFile(path: string) {
   } catch (error) {
     console.error(error);
   }
-
-  // &overwrite=true - заменит старый файл новым
 }
 
 export async function createFile(url: string, file: File) {
@@ -157,7 +156,7 @@ export async function createFile(url: string, file: File) {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(file),
+      body: file,
     });
     if (!response.ok) {
       const error: IFailedServerResponse = await response.json();
@@ -168,20 +167,46 @@ export async function createFile(url: string, file: File) {
     console.error(error);
   }
 }
-export async function deleteDocumentOnServer(path: string ): Promise<boolean | undefined> {
+export async function deleteDocumentOnServer(path: string): Promise<boolean | undefined> {
   try {
     if (!isOnline()) throw new NetworkError();
-    
+
     // Формируем URL для удаления файла
     const url: string = `${baseUrl}?path=${path}`;
     const response = await fetch(url, {
       method: 'DELETE',
       headers,
     });
-   if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+    if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
     return true;
   } catch (error) {
     console.error('Ошибка при удалении файла:', error); // Здесь будет кастомный алерт
   }
+}
+export async function moveDocument(
+  path: string,
+  from: string,
+  overwrite: boolean = false
+): Promise<{ status: number } | boolean | undefined> {
+  try {
+    if (!isOnline()) throw new NetworkError();
 
+    const URL: string = `${baseUrl}/move?from=${from}&path=${path}&overwrite=${overwrite}`;
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers,
+    });
+    if (response.status === 409) {
+      return {
+        status: response.status,
+      };
+    }
+    if (!response.ok) {
+      const error: IFailedServerResponse = await response.json();
+      throw new Error(`Ошибка ${response.status}: ${error.message}`);
+    }
+    return { status: response.status };
+  } catch (error) {
+    alertStore.toggleAlert(error.message);
+  }
 }
