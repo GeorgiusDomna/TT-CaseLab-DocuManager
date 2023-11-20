@@ -173,6 +173,8 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path }
         <FormRenameDocument
           name='form-rename'
           newNameValue={newNameValue}
+          fileName={data}
+          path={path}
           onChange={handleChangeNewNameValue}
         />
       )}
