@@ -1,26 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import DocumentItem from './DocumentItem/DocumentItem';
-import styles from './contentBlock.module.css';
-import documentData from '../../interfaces/documentData';
-import { getAllFiles, getFilesFromBasket } from '../../api/documentService';
-import { getFilesFromDir } from '../../api/documentService';
-import Loading from './Loading/Loading';
 import { useLocation } from 'react-router-dom';
 import { Localization } from '@/enums/Localization';
 import { observer } from 'mobx-react-lite';
+
+import DocumentItem from './DocumentItem/DocumentItem';
+import documentData from '../../interfaces/documentData';
+import Loading from './Loading/Loading';
+
+import { getAllFiles, getFilesFromBasket } from '../../api/documentService';
+import { getFilesFromDir } from '../../api/documentService';
 import documentStore from '@/stores/DocumentStore';
+
+import styles from './contentBlock.module.css';
 
 const ContentBlock: React.FC = observer(() => {
   const { t } = useTranslation();
+
   const { documentList, setDocumentList } = documentStore;
   const [title, setTitle] = useState(t(Localization.ALL_DOCUMENTS));
-
   const [isLoading, setIsLoading] = useState(false);
 
   const { categoryName } = useParams();
-
   const location = useLocation();
 
   useEffect(() => {
@@ -34,9 +36,9 @@ const ContentBlock: React.FC = observer(() => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      const route = location.pathname;
       try {
+        setIsLoading(true);
+        const route = location.pathname;
         let files: documentData[];
         if (route === '/') {
           files = await getAllFiles();
@@ -49,10 +51,11 @@ const ContentBlock: React.FC = observer(() => {
           files = await getFilesFromDir(decodeId);
           setTitle(decodeId);
         }
+        if (!files) throw new Error('Data retrieval error');
         setDocumentList(files);
         setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error); // TODO ERROR
+        setDocumentList([]);
       }
     };
     fetchData();
