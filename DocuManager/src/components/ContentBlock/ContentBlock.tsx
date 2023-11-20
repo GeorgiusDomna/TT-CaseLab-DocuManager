@@ -9,10 +9,12 @@ import { getFilesFromDir } from '../../api/documentService';
 import Loading from './Loading/Loading';
 import { useLocation } from 'react-router-dom';
 import { Localization } from '@/enums/Localization';
+import { observer } from 'mobx-react-lite';
+import documentStore from '@/stores/DocumentStore';
 
-const ContentBlock: React.FC = () => {
+const ContentBlock: React.FC = observer(() => {
   const { t } = useTranslation();
-  const [documentList, setDocumentList] = useState<documentData[]>([]);
+  const { documentList, setDocumentList } = documentStore;
   const [title, setTitle] = useState(t(Localization.ALL_DOCUMENTS));
 
   const [isLoading, setIsLoading] = useState(false);
@@ -56,23 +58,6 @@ const ContentBlock: React.FC = () => {
     fetchData();
   }, [location]);
 
-  const handlers = {
-    addItem(data: documentData) {
-      setDocumentList((list) => [...list, data]);
-    },
-    deleteItem(name: string) {
-      setDocumentList((list) => list.filter((el) => el.name !== name));
-    },
-    renameItem(oldName: string, newName: string) {
-      setDocumentList((list) =>
-        list.map((el) => {
-          if (el.name === oldName) el.name = newName;
-          return el;
-        })
-      );
-    },
-  };
-
   if (isLoading) return <Loading type={'spinningBubbles'} color={'#bdbdbd'} />;
 
   return (
@@ -80,11 +65,11 @@ const ContentBlock: React.FC = () => {
       <h2 className={styles.contentBlock__title}>{title}</h2>
       <ul className={styles.contentBlock__documentList}>
         {documentList.map((item) => (
-          <DocumentItem key={item.name} data={item.name} path={item.path} handlers={handlers} file={item.file} />
+          <DocumentItem key={item.resource_id} data={item.name} path={item.path} file={item.file} />
         ))}
       </ul>
     </div>
   );
-};
+});
 
 export default ContentBlock;

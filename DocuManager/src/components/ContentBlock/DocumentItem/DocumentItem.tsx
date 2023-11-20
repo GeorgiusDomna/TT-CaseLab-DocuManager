@@ -8,20 +8,19 @@ import { Localization } from '@/enums/Localization';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import { deleteDocumentOnServer } from '../../../api/documentService';
 import { useLocation } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import documentStore from '@/stores/DocumentStore';
 
 interface DocumentItemProps {
   data: string;
   path: string;
-  handlers: {
-    deleteItem: (name: string) => void;
-    // ... (другие методы)
-  };
   file: string;
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = ({ data, file, path, handlers }) => {
+const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path }) => {
   const location = useLocation();
   const route = location.pathname;
+  const { deleteDocument, renameDocument } = documentStore;
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRenamePanel, setIsOpenRenamePanel] = useState(false);
   const [isOpenMovePanel, setIsOpenMovePanel] = useState(false);
@@ -70,7 +69,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file, path, handlers 
     deleteDocumentOnServer(path)
       .then((result) => {
         console.log('Успешно удалено:', result);
-        handlers.deleteItem(data);
+        deleteDocument(data);
       })
       .catch((error) => {
         console.error('Ошибка при удалении файла:', error);
@@ -185,6 +184,6 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ data, file, path, handlers 
       />
     </li>
   );
-};
+});
 
 export default DocumentItem;
