@@ -6,7 +6,7 @@ import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
 import ModalWindow from '../ModalWindow/ModalWindow';
-import { deleteDocumentOnServer } from '../../api/documentService';
+import { deleteDocumentOnServer } from '../../../api/documentService';
 import { useLocation } from 'react-router-dom';
 
 interface DocumentItemProps {

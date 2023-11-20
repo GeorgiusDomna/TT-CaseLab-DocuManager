@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { fetchFolderContents } from '@/api/documentService';
-import NewCategoryCreator from '../NewCategoryCreator/newCategoryCreator';
-import Navigation from '../Navigation/Navigation';
-import LanguageSwitch from '../LanguageSwitch/LanguageSwitch';
+import NewCategoryCreator from './NewCategoryCreator/newCategoryCreator';
+import Navigation from './Navigation/Navigation';
+import LanguageSwitch from './LanguageSwitch/LanguageSwitch';
 import SideBarButton from './SideBarButton/SideBarButton';
 import styles from './sideBar.module.css';
-import FormUploadDocument from '../FormUploadDocument/FormUploadDocument';
+import FormUploadDocument from './FormUploadDocument/FormUploadDocument';
 import { observer } from 'mobx-react-lite';
 import categoryStore from '@/stores/CategoryStore';
 

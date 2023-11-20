@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import DocumentItem from '../DocumentItem/DocumentItem';
+import DocumentItem from './DocumentItem/DocumentItem';
 import styles from './contentBlock.module.css';
 import documentData from '../../interfaces/documentData';
 import { getAllFiles, getFilesFromBasket } from '../../api/documentService';
 import { getFilesFromDir } from '../../api/documentService';
-import Loading from '../Loading/Loading';
+import Loading from './Loading/Loading';
 import { useLocation } from 'react-router-dom';
 import { Localization } from '@/enums/Localization';
 
