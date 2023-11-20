@@ -182,3 +182,26 @@ export async function deleteDocumentOnServer(path: string): Promise<boolean | un
     console.error('Ошибка при удалении файла:', error); // Здесь будет кастомный алерт
   }
 }
+export async function moveDocument(path: string, from: string, overwrite: boolean = false): Promise<{status:number} | boolean | undefined> {
+  try {
+    if (!isOnline()) throw new NetworkError();
+
+    const URL: string = `${baseUrl}/move?from=${from}&path=${path}&overwrite=${overwrite}`;
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers,
+    });
+    if (response.status === 409) {
+      return {
+        status: response.status
+      }
+    }
+    if (!response.ok) {
+      const error: IFailedServerResponse = await response.json();
+      throw new Error(`Ошибка ${response.status}: ${error.message}`);
+    }
+    return {status: response.status};
+  } catch (error) {
+    console.error(error.message);
+  }
+}
