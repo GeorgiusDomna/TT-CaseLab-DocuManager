@@ -11,7 +11,7 @@ function App() {
         <SideBar />
         <Routes>
           <Route path='/' element={<ContentBlock />} />
-          <Route path='/categories/:id?' element={<ContentBlock />} />
+          <Route path='/categories/:categoryName' element={<ContentBlock />} />
           <Route path='/trash' element={<ContentBlock />} />
         </Routes>
       </div>

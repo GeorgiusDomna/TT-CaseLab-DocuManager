@@ -35,20 +35,20 @@ class DocumentStore {
 
   /**
    * Удаляет документ из хранилища на основе его имени.
-   * @param {string} name - Имя документа, который нужно удалить.
+   * @param {string} resource_id - Id документа, который нужно удалить.
    */
-  deleteDocument(name: string) {
-    this.documentList = this.documentList.filter((item) => item.name !== name);
+  deleteDocument(resource_id: string) {
+    this.documentList = this.documentList.filter((item) => item.resource_id !== resource_id);
   }
 
   /**
    * Переименовывает документ в хранилище.
-   * @param {string} oldName - Текущее имя документа, которое нужно переименовать.
+   * @param {string} resource_id - Id документа, который нужно переименовать.
    * @param {string} newName - Новое имя для присвоения документу.
    */
-  renameDocument(oldName: string, newName: string) {
+  renameDocument(resource_id: string, newName: string) {
     this.documentList = this.documentList.map((el) => {
-      if (el.name === oldName) el.name = newName;
+      if (el.resource_id === resource_id) el.name = newName;
       return el;
     });
   }
