@@ -213,3 +213,19 @@ export async function moveDocument(
     alertStore.toggleAlert(error.message);
   }
 }
+
+export async function RecoveryDocumentOnServer(path: string): Promise<boolean | undefined> {
+  try {
+    if (!isOnline()) throw new NetworkError();
+    // Формируем URL для востановления файла 
+    const url: string = baseUrl.replace('resources', 'trash') + '/resources/restore?path=' + path;
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers,
+    });
+    if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+    return true;
+  } catch (error) {
+    console.error('Ошибка при востановлении файла:', error); // Здесь будет кастомный алерт
+  }
+}
