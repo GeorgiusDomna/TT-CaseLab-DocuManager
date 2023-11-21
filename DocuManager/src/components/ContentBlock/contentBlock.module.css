@@ -1,5 +1,5 @@
 .contentBlock {
-  width: 100%;
+  width: 73%;
   padding: 2.5rem;
   padding-top: 50px;
 }
@@ -15,4 +15,16 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+@media (max-width: 1000px) {
+  .contentBlock {
+    width: 65%;
+  }
+}
+
+@media (max-width: 768px) {
+  .contentBlock {
+    width: 100%;
+  }
 }
