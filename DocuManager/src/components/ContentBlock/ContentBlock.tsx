@@ -60,7 +60,7 @@ const ContentBlock: React.FC = observer(() => {
   if (isLoading) return <Loading type={'spinningBubbles'} color={'#bdbdbd'} />;
 
   return (
-    <div className={styles.contentBlock}>
+    <div className={styles.contentBlock} data-testid='ContentBlock'>
       <h2 className={styles.contentBlock__title}>{title}</h2>
       <ul className={styles.contentBlock__documentList}>
         {documentList.map((item) => (
