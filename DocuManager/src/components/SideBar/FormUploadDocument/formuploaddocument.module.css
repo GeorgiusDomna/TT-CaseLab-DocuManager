@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .documentsUpload_form {
@@ -66,8 +66,8 @@
 }
 
 .documentsUpload_openButton_icon {
-  width: 24px;
-  height: 24px;
+  min-width: 21px;
+  min-height: 21px;
   background-image: url('@/assets/upload-file.png');
   background-repeat: no-repeat;
   background-position: center;

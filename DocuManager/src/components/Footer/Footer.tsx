@@ -4,10 +4,15 @@ import ghIcon from '../../assets/github_icon.png';
 const Footer: React.FC = () => {
   return (
     <footer className={styles.footer}>
-      <a href='https://github.com/GeorgiusDomna/TT-CaseLab-DocuManager'>
+      <a
+        className={styles.link}
+        href='https://github.com/GeorgiusDomna/TT-CaseLab-DocuManager'
+        target='_blank'
+        rel='noreferrer'
+      >
         <img src={ghIcon} alt='gh icon' />
+        <span>2023</span>
       </a>
-      <span>2023</span>
     </footer>
   );
 };

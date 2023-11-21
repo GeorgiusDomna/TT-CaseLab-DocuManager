@@ -1,5 +1,3 @@
-import alertStore from '@/stores/AlertStore';
-
 /**
  * Класс NetworkError представляет собой кастомную ошибку, связанную с отсутствием интернет-соединения.
  * Этот класс расширяет встроенный класс Error.
@@ -28,6 +26,5 @@ export class NetworkError extends Error {
   constructor(message: string = 'Нет интернет соединения.') {
     super(message);
     this.name = 'NetworkError';
-    alertStore.toggleAlert(message);
   }
 }
