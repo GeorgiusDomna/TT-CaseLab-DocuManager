@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 import ModalWindow from '../ModalWindow/ModalWindow';
-import ButtonIcon from '../ButtonIcon/ButtonIcon';
+import ButtonImg from '../ButtonImg/ButtonImg';
 import FormRenameDocument from '../FormRenameDocument/FormRenameDocument';
 import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
 
@@ -167,22 +167,18 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
             route !== '/trash' &&
             buttonsIcon.map(({ id, typeStyle, title, onClick }) => (
               <li key={id}>
-                <ButtonIcon typeStyle={typeStyle} title={title} onClick={onClick} />
+                <ButtonImg typeStyle={typeStyle} title={title} onClick={onClick} />
               </li>
             ))}
           {isOpen &&
             route === '/trash' &&
             buttonsIconTrash.map(({ id, typeStyle, title, onClick }) => (
               <li key={id}>
-                <ButtonIcon typeStyle={typeStyle} title={title} onClick={onClick} />
+                <ButtonImg typeStyle={typeStyle} title={title} onClick={onClick} />
               </li>
             ))}
           <li>
-            <ButtonIcon
-              typeStyle='option'
-              title={t(Localization.SETTINGS)}
-              onClick={toggleOption}
-            />
+            <ButtonImg typeStyle='option' title={t(Localization.SETTINGS)} onClick={toggleOption} />
           </li>
         </ul>
       </div>
