@@ -1,0 +1,81 @@
+.categoryCreator {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.categoryCreator_form {
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgb(194, 194, 194);
+}
+.categoryCreator_input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 0.5rem 0.7rem;
+  font-size: 1rem;
+  font-family: 'Ubuntu', sans-serif;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+}
+
+/* BUTTONS */
+
+.categoryCreator_buttonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+}
+.categoryCreator_button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.5s;
+  box-shadow: 0px 2px 5px rgb(194, 194, 194);
+}
+.categoryCreator_button:hover {
+  transform: scale(1.005, 1.005);
+  box-shadow: 0px 8px 10px rgb(194, 194, 194);
+}
+.categoryCreator_button:active {
+  transform: scale(0.95,0.95);
+  transition: 0.1s;
+}
+.categoryCreator_button:disabled:hover {
+  transform: scale(1, 1);
+  box-shadow: 0px 2px 5px rgb(194, 194, 194);
+  cursor: default;
+  background-color: #f3f3f3;
+}
+.categoryCreator_openButton {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: #ffffff;
+}
+.categoryCreator_openButton:hover {
+  background-color: #f2f2f2;
+}
+.categoryCreator_openButton_icon {
+  min-width: 20px;
+  min-height: 20px;
+  background-image: url('@/assets/create-category.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.categoryCreator_submitButton {
+  width: 6.9rem;
+  background-color: #f3f3f3;
+}
+.categoryCreator_submitButton:hover {
+  background-color: #fafafa;
+}

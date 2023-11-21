@@ -1,0 +1,18 @@
+.contentBlock {
+  width: 100%;
+  padding: 2.5rem;
+  padding-top: 50px;
+}
+.contentBlock__title {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-left: 10px;
+  text-align: left;
+}
+.contentBlock__documentList {
+  width: 100%;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

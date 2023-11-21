@@ -1,0 +1,11 @@
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
