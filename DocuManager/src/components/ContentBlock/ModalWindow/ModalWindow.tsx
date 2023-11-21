@@ -9,7 +9,7 @@ interface ModalWindowProps {
   file: string;
 }
 
-Modal.setAppElement('#root');
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 const ModalWindow: React.FC<ModalWindowProps> = ({
   data,

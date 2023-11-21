@@ -26,7 +26,10 @@ const SideBar: React.FC = observer(() => {
   }
 
   return (
-    <div className={[styles.sideBar, isShown ? styles.sideBar_shown : ''].join(' ')}>
+    <div
+      className={[styles.sideBar, isShown ? styles.sideBar_shown : ''].join(' ')}
+      data-testid={'SideBar'}
+    >
       <Navigation categoryList={categoryList} />
       <NewCategoryCreator addNewCategory={addNewCategory} />
       <FormUploadDocument categoryList={categoryList} />
