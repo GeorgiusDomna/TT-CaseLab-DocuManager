@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
-import styles from './modalwindow.module.css';
 import alertStore from '@/stores/AlertStore';
+import styles from './modalwindow.module.css';
+import closeIcon from '@/assets/cancel.svg';
 
 interface ModalWindowProps {
   data: string;
@@ -24,12 +25,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
   return (
     <Modal isOpen={isOpenModalWindow} contentLabel='Модальное окно' className={styles.modal}>
       <div className={styles.modal__header}>
-        <img
-          src={'../../src/assets/cancel.svg'}
-          className={styles.modal__close}
-          onClick={toggleModalWindow}
-          alt='close'
-        />
+        <img src={closeIcon} className={styles.modal__close} onClick={toggleModalWindow} />
       </div>
       <div className={styles.modal__img}>
         <img src={file} onError={handleImageError} />
