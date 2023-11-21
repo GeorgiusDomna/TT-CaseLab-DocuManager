@@ -12,9 +12,11 @@ import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
 import { deleteDocumentOnServer, RecoveryDocumentOnServer } from '../../../api/documentService';
 import documentStore from '@/stores/DocumentStore';
 import alertStore from '@/stores/AlertStore';
-import { isOnline } from '@/utils/networkStatus';
+import { networkCheck } from '@/utils/networkStatus';
 
 import styles from './documentItem.module.css';
+
+let isNet = false;
 
 interface DocumentItemProps {
   data: string;
@@ -45,9 +47,16 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
   };
 
   const toggleOption = () => {
-    setIsOpen(!isOpen);
-    setIsOpenRenamePanel(false);
-    setIsOpenMovePanel(false);
+    if (!isNet) {
+      if (networkCheck()) {
+        isNet = true;
+      }
+    }
+    if (isNet) {
+      setIsOpen(!isOpen);
+      setIsOpenRenamePanel(false);
+      setIsOpenMovePanel(false);
+    }
   };
 
   const toggleMovePanel = () => {
@@ -99,8 +108,7 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
   };
 
   const toggleModalWindow = () => {
-    if (!isOnline()) alertStore.toggleAlert('Нет интернет соединения.');
-    else setIsOpenModalWindow(!isOpenModalWindow);
+    networkCheck() && setIsOpenModalWindow(!isOpenModalWindow);
   };
 
   const buttonsIcon = [

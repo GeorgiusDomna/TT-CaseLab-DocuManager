@@ -7,6 +7,9 @@ import { createFile, createURLFile, getFileInfo } from '@/api/documentService';
 import { observer } from 'mobx-react-lite';
 import alertStore from '@/stores/AlertStore';
 import DocumentStore from '@/stores/DocumentStore';
+import { networkCheck } from '@/utils/networkStatus';
+
+let isNet = false;
 
 interface IFormUploadDocumentProps {
   categoryList: IResourceMetadata[];
@@ -30,8 +33,13 @@ const FormUploadDocument: React.FC<IFormUploadDocumentProps> = observer(({ categ
   };
 
   const toggleFormUploadDocument = () => {
-    setIsOpen(!isOpen);
-    !isOpen && resetStates();
+    if (!isNet) {
+      if (networkCheck()) isNet = true;
+    }
+    if (isNet) {
+      setIsOpen(!isOpen);
+      !isOpen && resetStates();
+    }
   };
 
   const handleChangeSelectValue = (event: ChangeEvent<HTMLSelectElement>) => {
