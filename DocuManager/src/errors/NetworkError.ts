@@ -5,7 +5,7 @@
  * @class NetworkError
  * @extends {Error}
  *
- * @param {string} [message='Нет интернет соединения.'] - Сообщение об ошибке, которое будет передано при создании экземпляра.
+ * @param {string} [message='Нет интернет соединения'] - Сообщение об ошибке, которое будет передано при создании экземпляра.
  *
  * @example
  * // Пример использования:
@@ -23,7 +23,7 @@
  * }
  */
 export class NetworkError extends Error {
-  constructor(message: string = 'Нет интернет соединения.') {
+  constructor(message: string = 'Нет интернет соединения') {
     super(message);
     this.name = 'NetworkError';
   }

@@ -19,16 +19,16 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
 }) => {
   const handleImageError = () => {
     toggleModalWindow();
-    alertStore.toggleAlert('Ошибка при загрузки изображения.');
+    alertStore.toggleAlert('Ошибка при загрузке изображения');
   };
   return (
     <Modal isOpen={isOpenModalWindow} contentLabel='Модальное окно' className={styles.modal}>
       <div className={styles.modal__header}>
         <img
-          src={'../../src/assets/close.svg'}
+          src={'../../src/assets/cancel.svg'}
           className={styles.modal__close}
           onClick={toggleModalWindow}
-          alt='Close'
+          alt='close'
         />
       </div>
       <div className={styles.modal__img}>
