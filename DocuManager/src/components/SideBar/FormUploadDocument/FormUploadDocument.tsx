@@ -78,26 +78,19 @@ const FormUploadDocument: React.FC<IFormUploadDocumentProps> = observer(({ categ
         fileValue &&
           res &&
           createFile(res.href, fileValue)
-            .then(() => {
-              form.reset();
-              resetStates();
-              setIsOpen(false);
-              getFileInfo(`disk:${selectValue}/${name}`)
-                .then((resp) => DocumentStore.addDocument(resp))
-                .catch((error) => {
-                  alertStore.toggleAlert(error);
-                  console.error(error);
-                });
+            .then((isCreated) => {
+              if (isCreated) {
+                form.reset();
+                resetStates();
+                setIsOpen(false);
+                getFileInfo(`disk:${selectValue}/${name}`)
+                  .then((newItem) => newItem && DocumentStore.addDocument(newItem))
+                  .catch((err) => alertStore.toggleAlert(err));
+              }
             })
-            .catch((err) => {
-              alertStore.toggleAlert(err);
-              console.error(err);
-            });
+            .catch((err) => alertStore.toggleAlert(err));
       })
-      .catch((err) => {
-        alertStore.toggleAlert(err);
-        console.error(err);
-      });
+      .catch((err) => alertStore.toggleAlert(err));
   };
 
   return (

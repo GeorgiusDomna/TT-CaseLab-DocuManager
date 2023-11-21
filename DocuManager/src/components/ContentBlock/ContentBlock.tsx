@@ -9,8 +9,7 @@ import DocumentItem from './DocumentItem/DocumentItem';
 import documentData from '../../interfaces/documentData';
 import Loading from './Loading/Loading';
 
-import { getAllFiles, getFilesFromBasket } from '../../api/documentService';
-import { getFilesFromDir } from '../../api/documentService';
+import { getAllFiles, getFilesFromBasket, getFilesFromDir } from '../../api/documentService';
 import documentStore from '@/stores/DocumentStore';
 
 import styles from './contentBlock.module.css';
@@ -36,26 +35,23 @@ const ContentBlock: React.FC = observer(() => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const route = location.pathname;
-        let files: documentData[];
-        if (route === '/') {
-          files = await getAllFiles();
-          setTitle(t(Localization.ALL_DOCUMENTS));
-        } else if (route === '/trash') {
-          files = await getFilesFromBasket();
-          setTitle(t(Localization.BASKET));
-        } else {
-          const decodeId = decodeURIComponent(categoryName as string);
-          files = await getFilesFromDir(decodeId);
-          setTitle(decodeId);
-        }
-        if (!files) throw new Error('Data retrieval error');
+      setIsLoading(true);
+      const route = location.pathname;
+      let files: documentData[];
+      if (route === '/') {
+        files = await getAllFiles();
+        setTitle(t(Localization.ALL_DOCUMENTS));
+      } else if (route === '/trash') {
+        files = await getFilesFromBasket();
+        setTitle(t(Localization.BASKET));
+      } else {
+        const decodeId = decodeURIComponent(categoryName as string);
+        files = await getFilesFromDir(decodeId);
+        setTitle(decodeId);
+      }
+      if (files) {
         setDocumentList(files);
         setIsLoading(false);
-      } catch (error) {
-        setDocumentList([]);
       }
     };
     fetchData();

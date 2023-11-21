@@ -6,6 +6,7 @@ import styles from './formmovedocument.module.css';
 import { moveDocument } from '@/api/documentService.ts';
 import categoryStore from '@/stores/CategoryStore';
 import { observer } from 'mobx-react-lite';
+import { useLocation } from 'react-router-dom';
 
 interface FormMoveDocumentProps {
   selectValue: string;
@@ -14,11 +15,13 @@ interface FormMoveDocumentProps {
   id: string;
   deleteDocument: (resource_id: string) => void;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  resetForms: () => void;
 }
 
 const FormMoveDocument: React.FC<FormMoveDocumentProps> = observer(
-  ({ selectValue, name, path, id, deleteDocument, onChange }) => {
+  ({ selectValue, name, path, id, deleteDocument, onChange, resetForms }) => {
     const { categoryList } = categoryStore;
+    const location = useLocation();
 
     const handleMoveDocument = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -33,7 +36,8 @@ const FormMoveDocument: React.FC<FormMoveDocumentProps> = observer(
       const result = await moveDocument(newPath, path, overwrite);
 
       if (typeof result !== 'boolean' && result?.status === 201) {
-        deleteDocument(id);
+        resetForms();
+        location.pathname !== '/' && deleteDocument(id);
       }
       if (typeof result !== 'boolean' && result?.status === 409) {
         const overwriteConfirm: boolean = confirm(t(Localization.FILE_EXIST));

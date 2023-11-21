@@ -1,16 +1,20 @@
 import { ChangeEvent, useState } from 'react';
-import styles from './documentItem.module.css';
+import { useTranslation } from 'react-i18next';
+import { Localization } from '@/enums/Localization';
+import { useLocation } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+
+import ModalWindow from '../ModalWindow/ModalWindow';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import FormRenameDocument from '../FormRenameDocument/FormRenameDocument';
 import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
-import { useTranslation } from 'react-i18next';
-import { Localization } from '@/enums/Localization';
-import ModalWindow from '../ModalWindow/ModalWindow';
+
 import { deleteDocumentOnServer, RecoveryDocumentOnServer } from '../../../api/documentService';
-import { useLocation } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
 import documentStore from '@/stores/DocumentStore';
 import alertStore from '@/stores/AlertStore';
+import { isOnline } from '@/utils/networkStatus';
+
+import styles from './documentItem.module.css';
 
 interface DocumentItemProps {
   data: string;
@@ -61,6 +65,7 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
   };
 
   const resetForms = () => {
+    setIsOpen(!isOpen);
     setIsOpenRenamePanel(false);
     setIsOpenMovePanel(false);
     setSelectValue('');
@@ -70,33 +75,32 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
   const handleDeleteDocument = () => {
     deleteDocumentOnServer(path)
       .then((result) => {
-         console.log('Успешно удалено:', result);
-         deleteDocument(id);
+        if (result) {
+          deleteDocument(id);
+          resetForms();
+        }
       })
       .catch((error) => {
         alertStore.toggleAlert(error.message);
-      })
-      .finally(() => {
-        resetForms();
       });
   };
 
   const handleRecoveryDocument = () => {
     RecoveryDocumentOnServer(path)
       .then((result) => {
-         console.log('Успешно востановлен:', result);
-         deleteDocument(id);
+        if (result) {
+          deleteDocument(id);
+          resetForms();
+        }
       })
       .catch((error) => {
         alertStore.toggleAlert(error.message);
-      })
-      .finally(() => {
-        resetForms();
       });
   };
 
   const toggleModalWindow = () => {
-    setIsOpenModalWindow(!isOpenModalWindow);
+    if (!isOnline()) alertStore.toggleAlert('Нет интернет соединения.');
+    else setIsOpenModalWindow(!isOpenModalWindow);
   };
 
   const buttonsIcon = [
@@ -190,6 +194,7 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
           selectValue={selectValue}
           deleteDocument={deleteDocument}
           onChange={handleSelectValue}
+          resetForms={resetForms}
         />
       )}
       {isOpenRenamePanel && (
