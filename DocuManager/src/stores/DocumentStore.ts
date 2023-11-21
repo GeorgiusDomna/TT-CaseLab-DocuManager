@@ -48,7 +48,10 @@ class DocumentStore {
    */
   renameDocument(resource_id: string, newName: string) {
     this.documentList = this.documentList.map((el) => {
-      if (el.resource_id === resource_id) el.name = newName;
+      if (el.resource_id === resource_id) {
+        el.path = el.path.replace(el.name, newName);
+        el.name = newName;
+      }
       return el;
     });
   }

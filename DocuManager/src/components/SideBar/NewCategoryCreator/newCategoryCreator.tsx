@@ -32,7 +32,7 @@ const NewCategoryCreator: React.FC<INewCategoryCreatorProps> = observer(({ addNe
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (await createNewCategory(newNameCategory)) {
-      addNewCategory({ name: newNameCategory, path: `disk:/CaseLabDocuments/${newNameCategory}` }); /// Здесь должен быть запрос на сервер за данными новой категории и пуш их в стейт categoryList
+      addNewCategory({ name: newNameCategory, path: `disk:/CaseLabDocuments/${newNameCategory}` });
       toggleCategoryCreator();
     }
   };

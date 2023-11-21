@@ -3,8 +3,10 @@ import styles from './formuploaddocument.module.css';
 import { IResourceMetadata } from '@/interfaces/IResourceMetadata';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
-import { createFile, createURLFile } from '@/api/documentService';
+import { createFile, createURLFile, getFileInfo } from '@/api/documentService';
 import { observer } from 'mobx-react-lite';
+import alertStore from '@/stores/AlertStore';
+import DocumentStore from '@/stores/DocumentStore';
 
 interface IFormUploadDocumentProps {
   categoryList: IResourceMetadata[];
@@ -76,17 +78,19 @@ const FormUploadDocument: React.FC<IFormUploadDocumentProps> = observer(({ categ
         fileValue &&
           res &&
           createFile(res.href, fileValue)
-            .then(() => {
-              form.reset();
-              resetStates();
-              setIsOpen(false);
+            .then((isCreated) => {
+              if (isCreated) {
+                form.reset();
+                resetStates();
+                setIsOpen(false);
+                getFileInfo(`disk:${selectValue}/${name}`)
+                  .then((newItem) => newItem && DocumentStore.addDocument(newItem))
+                  .catch((err) => alertStore.toggleAlert(err));
+              }
             })
-            .catch((err) => console.error(err));
+            .catch((err) => alertStore.toggleAlert(err));
       })
-      .catch((err) => {
-        alert(err);
-        console.error(err);
-      });
+      .catch((err) => alertStore.toggleAlert(err));
   };
 
   return (

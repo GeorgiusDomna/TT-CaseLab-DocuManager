@@ -11,7 +11,7 @@
   width: 100%;
   padding: 10px;
   border-radius: 10px;
-  transition: background-color 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
   display: flex;
   justify-content: space-between;
   align-items: center;

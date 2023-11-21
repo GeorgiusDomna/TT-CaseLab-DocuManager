@@ -1,12 +1,12 @@
-import styles from './buttonIcon.module.css';
+import styles from './buttonImg.module.css';
 
-interface ButtonIconProps {
+interface ButtonImgProps {
   title: string;
   typeStyle: string;
   onClick: () => void;
 }
 
-const ButtonIcon: React.FC<ButtonIconProps> = ({ typeStyle, title, onClick }) => {
+const ButtonImg: React.FC<ButtonImgProps> = ({ typeStyle, title, onClick }) => {
   return (
     <button
       className={[
@@ -20,4 +20,4 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ typeStyle, title, onClick }) =>
   );
 };
 
-export default ButtonIcon;
+export default ButtonImg;

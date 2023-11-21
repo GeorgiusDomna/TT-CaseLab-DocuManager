@@ -1,15 +1,20 @@
 import { ChangeEvent, useState } from 'react';
-import styles from './documentItem.module.css';
-import ButtonIcon from '../ButtonIcon/ButtonIcon';
-import FormRenameDocument from '../FormRenameDocument/FormRenameDocument';
-import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '@/enums/Localization';
-import ModalWindow from '../ModalWindow/ModalWindow';
-import { deleteDocumentOnServer } from '../../../api/documentService';
 import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+
+import ModalWindow from '../ModalWindow/ModalWindow';
+import ButtonImg from '../ButtonImg/ButtonImg';
+import FormRenameDocument from '../FormRenameDocument/FormRenameDocument';
+import FormMoveDocument from '../FormMoveDocument/FormMoveDocument';
+
+import { deleteDocumentOnServer, RecoveryDocumentOnServer } from '../../../api/documentService';
 import documentStore from '@/stores/DocumentStore';
+import alertStore from '@/stores/AlertStore';
+import { isOnline } from '@/utils/networkStatus';
+
+import styles from './documentItem.module.css';
 
 interface DocumentItemProps {
   data: string;
@@ -60,6 +65,7 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
   };
 
   const resetForms = () => {
+    setIsOpen(!isOpen);
     setIsOpenRenamePanel(false);
     setIsOpenMovePanel(false);
     setSelectValue('');
@@ -69,23 +75,32 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
   const handleDeleteDocument = () => {
     deleteDocumentOnServer(path)
       .then((result) => {
-        console.log('Успешно удалено:', result);
-        deleteDocument(id);
+        if (result) {
+          deleteDocument(id);
+          resetForms();
+        }
       })
       .catch((error) => {
-        console.error('Ошибка при удалении файла:', error);
-      })
-      .finally(() => {
-        resetForms();
+        alertStore.toggleAlert(error.message);
       });
   };
 
   const handleRecoveryDocument = () => {
-    resetForms();
+    RecoveryDocumentOnServer(path)
+      .then((result) => {
+        if (result) {
+          deleteDocument(id);
+          resetForms();
+        }
+      })
+      .catch((error) => {
+        alertStore.toggleAlert(error.message);
+      });
   };
 
   const toggleModalWindow = () => {
-    setIsOpenModalWindow(!isOpenModalWindow);
+    if (!isOnline()) alertStore.toggleAlert('Нет интернет соединения.');
+    else setIsOpenModalWindow(!isOpenModalWindow);
   };
 
   const buttonsIcon = [
@@ -154,22 +169,18 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
             route !== '/trash' &&
             buttonsIcon.map(({ id, typeStyle, title, onClick }) => (
               <li key={id}>
-                <ButtonIcon typeStyle={typeStyle} title={title} onClick={onClick} />
+                <ButtonImg typeStyle={typeStyle} title={title} onClick={onClick} />
               </li>
             ))}
           {isOpen &&
             route === '/trash' &&
             buttonsIconTrash.map(({ id, typeStyle, title, onClick }) => (
               <li key={id}>
-                <ButtonIcon typeStyle={typeStyle} title={title} onClick={onClick} />
+                <ButtonImg typeStyle={typeStyle} title={title} onClick={onClick} />
               </li>
             ))}
           <li>
-            <ButtonIcon
-              typeStyle='option'
-              title={t(Localization.SETTINGS)}
-              onClick={toggleOption}
-            />
+            <ButtonImg typeStyle='option' title={t(Localization.SETTINGS)} onClick={toggleOption} />
           </li>
         </ul>
       </div>
@@ -181,6 +192,7 @@ const DocumentItem: React.FC<DocumentItemProps> = observer(({ data, file, path, 
           selectValue={selectValue}
           deleteDocument={deleteDocument}
           onChange={handleSelectValue}
+          resetForms={resetForms}
         />
       )}
       {isOpenRenamePanel && (
